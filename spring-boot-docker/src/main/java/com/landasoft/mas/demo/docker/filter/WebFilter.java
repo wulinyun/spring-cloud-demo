@@ -29,9 +29,9 @@ public class WebFilter {
 	}
 
 	/***
-	 * 跨域过滤器
+	 * 跨域过滤器 --如果服务通过网关调用，可以在网关设置跨越，微应用本身去除跨域配置
 	 * @return
-	 */
+
 
 	@Bean
 	public CorsFilter corsFilter() {
@@ -43,5 +43,5 @@ public class WebFilter {
 		corsConfiguration.addAllowedMethod("*");
 		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(urlBasedCorsConfigurationSource);
-	}
+	}*/
 }
