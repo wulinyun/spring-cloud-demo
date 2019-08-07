@@ -13,8 +13,8 @@ spring:
      date-format: yyyy-MM-dd HH:mm:ss    #或正则yyyy-MM-dd HH:mm:ss
      time-zone: GMT+8    #或UTC
 #日志配置     
-logging: 
-  path: logs/log
+#logging:
+#  path: logs/log
 #  config: classpath:logback.xml
 
 #暴露actuator端点    
