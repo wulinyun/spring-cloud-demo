@@ -31,4 +31,10 @@ public class UserController {
         logger.info("calling trace demo backend");
         return "hello"+id;
     }
+    @RequestMapping("/call1/{id}")
+    public String callSpringBootDocker(@PathVariable String id){
+        logger.info("calling from trace demo backend spring-docker-demo");
+        String result= this.restTemplate.getForObject("http://localhost:8080/rest/image/listImageDatas?userId=" + id, String.class);
+        return result+" world";
+    }
 }

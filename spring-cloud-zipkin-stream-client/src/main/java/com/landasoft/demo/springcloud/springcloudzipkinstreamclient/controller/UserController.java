@@ -33,6 +33,12 @@ public class UserController {
         String result= this.restTemplate.getForObject("http://localhost:11022/call/" + id, String.class);
         return result+" world";
     }
+    @RequestMapping("/call1/{id}")
+    public String callHome1(@PathVariable String id){
+        logger.info("calling from trace demo backend");
+        String result= this.restTemplate.getForObject("http://localhost:11022/call1/" + id, String.class);
+        return result+" world";
+    }
     @RequestMapping("/call2/{id}")
     public String callSpringBootDocker(@PathVariable String id){
         logger.info("calling from trace demo backend spring-docker-demo");
