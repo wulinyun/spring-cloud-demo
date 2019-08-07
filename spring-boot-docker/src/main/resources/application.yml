@@ -14,9 +14,8 @@ spring:
      time-zone: GMT+8    #或UTC
 #日志配置     
 #logging:
-#  path: logs/log
+#  path: logs
 #  config: classpath:logback.xml
-
 #暴露actuator端点    
 management:
   endpoints:
