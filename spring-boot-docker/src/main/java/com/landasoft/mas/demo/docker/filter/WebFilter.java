@@ -18,7 +18,6 @@ public class WebFilter {
 	/***
 	 * 字符编码过滤器
 	 * @return
-	 */
 
 	@Bean
 	public Filter characterEncodingFilter() {
@@ -26,7 +25,7 @@ public class WebFilter {
 		characterEncodingFilter.setEncoding("UTF-8");
 		characterEncodingFilter.setForceEncoding(true);
 		return characterEncodingFilter;
-	}
+	}*/
 
 	/***
 	 * 跨域过滤器 --如果服务通过网关调用，可以在网关设置跨越，微应用本身去除跨域配置
