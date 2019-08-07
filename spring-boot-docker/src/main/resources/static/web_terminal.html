@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>web terminal</title>
+<script src="js/jquery-3.2.1.min.js"></script>
+
+<script src="js/jquery.terminal.min.js"></script>
+<link href="css/jquery.terminal.min.css" rel="stylesheet"/>
+<script src="js/keyboard.js"></script>
+</head>
+<body>
+	<div id="term_demo"></div>
+</body>
+<script type="text/javascript">
+/* jQuery(function($, undefined) {
+    $('#term_demo').terminal(function(command) {
+        if (command !== '') {
+            var result = window.eval(command);
+            if (result != undefined) {
+                this.echo(String(result));
+            }
+        }
+    }, {
+        greetings: 'Javascript Interpreter',
+        name: 'js_demo',
+        height: 200,
+        width: 450,
+        prompt: 'js> '
+    });
+});*/
+jQuery(function($, undefined) {
+    $('#term_demo').terminal({
+        add: function(a, b) {
+            this.echo(a + b);
+        },
+        foo: '/shell',
+        bar: {
+            sub: function(a, b) {
+                this.echo(a - b);
+            }
+        }
+    }, {
+        height: 200,
+        width: 450,
+        prompt: 'demo> '
+    });
+});
+/* $('#term_demo').cmd({
+    prompt: '$> ',
+    height: 200,
+    width: 450,
+    commands: function(command) {
+        //process user commands
+    }
+}); */
+/* $('#term_demo').terminal('service.php', {login: true}); */
+var $scope={
+		
+};
+$scope.getTeminal = function () {
+	if(KubernetesData.state){
+		$scope.prompt = true
+		socket = new WebSocket('ws://' + location.host +'/terminalService');
+		socket.onopen = function()
+		{
+			socket.send(JSON.stringify({
+				'containerName':$scope.options.bucketT,
+				'url': row.proxyUrl,
+				'namespace':row.namespace,
+				'resourceName': row.name,
+				'command':'',
+				'flag':false}))  
+		};
+		socket.onmessage = function (event) {
+			var obj = JSON.parse(event.data);
+			$scope.socketFlag=obj.flag;
+		};
+		setTimeout(function(){
+			$('#term_demo').terminal(function(command, term) {
+			//开始执行
+			// Web Socket 已连接上，使用 send() 方法发送数据
+			if(command){
+					socket.send(JSON.stringify({
+						'command':command,
+						'flag':$scope.socketFlag,
+						}))
+					term.disable()
+		}
+		socket.onmessage = function (event) {
+			var obj = JSON.parse(event.data);
+			if(obj.data){
+				$scope.socketFlag=obj.flag;
+				term.echo(String(obj.data));
+				term.enable()
+			}else{
+				term.enable()
+			}
+		};
+}, 
+{
+	greetings: "",//
+	height:500,
+	width:'100%',
+	'font-size':'15px',
+	prompt: '# ',
+	onBlur: function() {
+	// prevent loosing focus
+	return false;
+}
+});
+},100)
+}else{
+$scope.prompt = false
+}
+}
+</script>
+</html>

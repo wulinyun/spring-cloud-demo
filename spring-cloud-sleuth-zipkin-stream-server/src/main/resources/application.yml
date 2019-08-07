@@ -1,0 +1,46 @@
+server:
+  port: 11020
+spring:
+  application:
+    name: landa-mas-zipkin-stream-server
+  sleuth:
+    enabled: false
+
+  datasource:
+    schema[0]: classpath:/zipkin.sql
+    url: jdbc:mysql://${mysql.host:192.168.223.133}:3306/zipkin?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: 123456
+    continue-on-error: true
+    validationQuery: SELECT 1 FROM DUAL
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    initialization-mode: always
+  rabbitmq:
+    host: ${rabbitmq.host:192.168.223.133}
+    port: ${rabbitmq.port:5672}
+    username: ${rabbitmq.username:admin}
+    password: ${rabbitmq.password:admin}
+
+zipkin:
+  collector:
+    rabbitmq:
+      addresses: ${rabbitmq.host:192.168.223.133}:${rabbitmq.port:5672}
+      username: ${rabbitmq.username:admin}
+      password: ${rabbitmq.password:admin}
+      queue: zipkin
+  storage:
+    type: mysql
+# 关闭自动配置启用所有请求得检测
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false
+
+## cloud
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+  instance:
+    prefer-ip-address: true

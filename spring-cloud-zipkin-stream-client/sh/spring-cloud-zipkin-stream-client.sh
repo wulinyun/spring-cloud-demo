@@ -1,0 +1,1 @@
+nohup java -javaagent:/opt/pinpoint-agent-1.8.2/pinpoint-bootstrap-1.8.2.jar -Dpinpoint.agentId=zipkin-stream-client -Dpinpoint.applicationName=zipkin-stream-client -jar spring-cloud-zipkin-stream-client.jar &

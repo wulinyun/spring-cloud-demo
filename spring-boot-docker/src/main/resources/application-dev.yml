@@ -1,0 +1,53 @@
+#加密配置
+#java -cp jasypt-1.9.2.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="demo" password=landa_mas algorithm=PBEWithMD5AndDES
+#其中input为你的明文密码，这里我演示的是demo，password为你的私钥，algorithm这个是一个规则，切勿更改！！！
+#执行命令的OUTPUT就是加密之后的密文（密码）
+#VOsPyqR+0smqpK80meATg==
+
+jasypt:
+  encryptor:
+    password: landa_mas
+
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.32.20:3306/landa_mas_demo?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: demo
+    #password: demo #未加密密码
+    password: ENC(9oi8QE2Wo69bbuj0FziilQ==) #加密密码
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  rabbitmq:
+    host: ${rabbitmq.host:192.168.223.133}
+    port: ${rabbitmq.port:5672}
+    username: ${rabbitmq.username:admin}
+    password: ${rabbitmq.password:admin}
+  zipkin:
+    sender:
+      type: rabbit
+  sleuth:
+      web:
+        client:
+          enabled: true
+      sampler:
+        probability: 1.0 # 采用比例，默认 0.1 全部采样 1.0
+
+mybatis:
+    config-location: classpath:mybatis/mybatis-config.xml
+    mapper-locations: classpath:mybatis/mapper/*.xml
+    type-aliases-package: com.landa.mas.facerecognition.model.vo
+
+# pagehelper配置
+pagehelper: 
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+## cloud
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+  instance:
+    prefer-ip-address: true

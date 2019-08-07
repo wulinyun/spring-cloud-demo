@@ -1,0 +1,27 @@
+server:
+  port: 11021
+spring:
+  application:
+    name: landa-mas-zipkin-stream-client
+  rabbitmq:
+    host: ${rabbitmq.host:192.168.223.133}
+    port: ${rabbitmq.port:5672}
+    username: ${rabbitmq.username:admin}
+    password: ${rabbitmq.password:admin}
+  zipkin:
+    sender:
+      type: rabbit
+  sleuth:
+      web:
+        client:
+          enabled: true
+      sampler:
+        probability: 1.0 # 采用比例，默认 0.1 全部采样 1.0
+
+## cloud
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+  instance:
+    prefer-ip-address: true

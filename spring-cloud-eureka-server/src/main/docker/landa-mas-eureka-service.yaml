@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    k8s-app: landa-mas-eureka
+  name: landa-mas-eureka
+  namespace: kube-system
+spec:
+  type: NodePort
+  ports:
+    - port: 8761
+      targetPort: 8761
+      nodePort: 30001
+  selector:
+    k8s-app: landa-mas-eureka

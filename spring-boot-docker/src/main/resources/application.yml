@@ -1,0 +1,33 @@
+server:
+  port: 8080  #使用docker镜像部署到pcf中的端口一定要使用8080，要不然无法启动。所以平时开发默认可以不用去改端口号
+
+spring:
+  profiles:
+    active: @activatedProperties@ #开发过程中可以指定配置环境，实际请使用后面的配置，以便构建使用指定配置构建代码包
+  mvc:
+    throw-exception-if-no-handler-found: true
+  application:
+    name: landa-mas-docker-demo    # 项目名称尽量用小写
+    #时间+8小时
+  jackson:
+     date-format: yyyy-MM-dd HH:mm:ss    #或正则yyyy-MM-dd HH:mm:ss
+     time-zone: GMT+8    #或UTC
+#日志配置     
+logging: 
+  path: logs/log
+#  config: classpath:logback.xml
+
+#暴露actuator端点    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+    shutdown: 
+      enabled: true
+#显示被管理应用的版本号      
+info:
+  version: @project.version@

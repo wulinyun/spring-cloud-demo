@@ -1,0 +1,15 @@
+---
+applications:
+- name: spring-boot-aliyun-docker-dev
+  memory: 1024M
+  host: spring-boot-aliyun-docker-dev
+  domain: landaudev.com
+  docker:
+    #image: harbor.landaudev.com/demo/spring-boot-docker:latest
+    image: registry.cn-shanghai.aliyuncs.com/landasoft/landa-mas:spring-boot-docker-0.0.1-SNAPSHOT
+    #username: admin #harbor私有镜像仓库用户名
+    username: server@landasoft.com #阿里云harbor私有镜像仓库用户名
+  env:
+    TZ: Asia/Shanghai
+#在执行cf命令的终端设置harbor私有镜像仓库密码在环境变量 
+#export CF_DOCKER_PASSWORD=Landa123 

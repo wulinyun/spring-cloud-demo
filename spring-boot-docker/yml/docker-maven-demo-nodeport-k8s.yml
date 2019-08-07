@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: docker-maven-demo
+  name: docker-maven-demo
+spec:
+  ports:
+    - port: 8080 #服务访问端口
+      targetPort: 8080 #容器端口
+      nodePort: 32221 #NodePort
+  selector:
+    app: docker-maven-demo
+  type: NodePort
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: docker-maven-demo
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: docker-maven-demo
+    spec:
+      imagePullSecrets: 
+      - name: landa-aliyun-secret
+      containers:
+      - name: docker-maven-demo
+#        image: registry.cn-shanghai.aliyuncs.com/landasoft/landa-mas:spring-boot-docker
+        image: harbor.k8s.landaudev.com/demo/spring-boot-docker
+        ports:
+        - containerPort: 8080
+        resources: 
+          limits:
+            #cpu: "1"             #限制pod申请最大的cpu数量为1个cpu
+            memory: 2048Mi        #申请内存最大值
+          requests:
+            #cpu: "0.5"           #pod申请的cpu数量为0.5个cpu
+            memory: 1024Mi        #申请内存的最小值
+        env:
+          - name: JAVA_OPTS
+            value: -Dspring.datasource.url=jdbc:mysql://192.168.32.20:3306/landa_mas_demo_test?useUnicode=true&characterEncoding=utf8&useSSL=false -Dspring.datasource.username=demo -Dspring.datasource.password=demo
+

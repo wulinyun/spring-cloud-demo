@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.landasoft.mas.demo.docker</groupId>
+	<artifactId>spring-boot-docker</artifactId>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
+
+	<name>spring-boot-docker</name>
+	<description>spring boot project for Spring Boot</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.4.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Finchley.SR1</spring-cloud.version>
+		<!-- 
+			1、增加docker镜像前缀 ，其实就是对应仓库里面的ip地址或者域名/项目名称，不是应用的项目名称
+			2、如果不推送到私有仓库，只是在宿主机上面打镜像，可以去除前面ip或者域名的配置
+		-->
+		<!-- PCF私有镜像仓库前缀 ，目前已经配置好，私有镜像仓库镜像本身可以部署到PCF，还可以部署到k8s中，所以可以默认配置选择本项目所有配置
+		<docker.image.prefix>harbor.landaudev.com/demo</docker.image.prefix>
+		-->
+		<!-- k8s私有镜像仓库前缀 -->
+		<docker.image.prefix>harbor.k8s.landaudev.com/demo</docker.image.prefix>
+		
+		<!-- 比格云k8s私有镜像仓库前缀 -->
+		<!-- <docker.image.prefix>harbor.biggerk8s.landaudev.com/demo</docker.image.prefix> -->
+		
+		<!-- 
+			阿里云镜像仓库
+			registry.cn-shanghai.aliyuncs.com/landasoft/landa-mas:[镜像版本号] 进行imagename名字凭借的时候是需要改成:
+		 -->
+		<!-- <docker.image.prefix>registry.cn-shanghai.aliyuncs.com/landasoft/landa-mas</docker.image.prefix> -->
+	</properties>
+	<profiles>  
+	    <profile>  
+	        <id>dev</id>  
+	        <properties>  
+	            <!-- 环境标识，需要与配置文件的名称相对应 -->  
+	            <activatedProperties>dev</activatedProperties>  
+	        </properties>  
+	        <activation>  
+	            <!-- 默认环境 -->  
+	            <activeByDefault>true</activeByDefault>  
+	        </activation>  
+	    </profile>  
+	    <profile>  
+	        <id>test</id>  
+	        <properties>  
+	            <activatedProperties>test</activatedProperties>  
+	        </properties>  
+	    </profile>  
+	    <profile>  
+	        <id>prod</id>  
+	        <properties>  
+	            <activatedProperties>prod</activatedProperties>  
+	        </properties>  
+	    </profile>  
+	</profiles>  
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- mybatis 依赖 -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<!-- mysql依赖 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency> 
+		<!-- alibaba 数据库连接池-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.1.6</version>
+		</dependency>
+		 <!-- 分页插件 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.6.0</version>
+		</dependency>
+		<!-- swagger begin -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+		<!-- swagger end -->
+		<!-- 启用 Actuator 的端点提供Spring Boot所有的production-ready特性 -->
+		<dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-actuator</artifactId>
+    	</dependency>
+    	<dependency>
+		    <groupId>commons-net</groupId>
+		    <artifactId>commons-net</artifactId>
+		    <version>1.4.1</version>
+		</dependency>
+		<!-- 增加 websocket依賴  -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
+		</dependency>
+		<!-- excel导入依赖包 -->
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>3.9</version>
+		</dependency>
+		<!-- 注册中心客户端依赖 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<!-- 开启数据库加密依赖包
+			1、pom文件加入依赖
+			<dependency>
+			   <groupId>com.github.ulisesbocchio</groupId>
+			   <artifactId>jasypt-spring-boot-starter</artifactId>
+			   <version>2.1.0</version>
+			</dependency>
+
+			2、生成密钥
+			找到你本地maven仓库的jasypt的jar包，在该目录下打开cmd命令窗口
+			java -cp jasypt-1.9.2.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="demo" password=landa_mas algorithm=PBEWithMD5AndDES
+
+			其中input为你的明文密码，这里我演示的是test，password为你的私钥，algorithm这个是一个规则，切勿更改！！！
+			执行命令的OUTPUT就是加密之后的密文（密码）
+			9oi8QE2Wo69bbuj0FziilQ==
+			
+			3、springboot配置文件application-*.yml.中添加配置
+			jasypt:
+			  encryptor:
+			    password: landa_mas
+			
+			spring:
+			  datasource:
+			    url: jdbc:mysql://192.168.32.20:3306/landa_mas_demo?useUnicode=true&characterEncoding=utf8&useSSL=false
+			    username: demo
+			    #password: demo #未加密密码
+			    password: ENC(9oi8QE2Wo69bbuj0FziilQ==) #加密密码
+			    # 使用druid数据源
+			    type: com.alibaba.druid.pool.DruidDataSource
+			    driver-class-name: com.mysql.jdbc.Driver
+		-->
+		
+		<dependency>
+		   <groupId>com.github.ulisesbocchio</groupId>
+		   <artifactId>jasypt-spring-boot-starter</artifactId>
+		   <version>2.1.0</version>
+		</dependency>
+		<!-- rabbitmq sender-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zipkin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit</artifactId>
+		</dependency>
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+				
+	</dependencyManagement>
+	<build>
+		<finalName>spring-boot-docker</finalName> <!-- 指定package生成的文件名为spring-boot-docker.jar -->
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+       				<includeSystemScope>true</includeSystemScope>
+   				</configuration>
+			</plugin>
+			<!-- docker的maven插件，官网：https://github.com/spotify/docker-maven-plugin -->
+	        <plugin>
+	            <groupId>com.spotify</groupId>
+	            <artifactId>docker-maven-plugin</artifactId>
+	            <version>0.4.12</version>
+	            <!-- 此配置用于绑定mvn package执行就自动执行了mvn docker:build
+	            <executions>
+					<execution>
+						<id>build-image</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+				-->
+	            <configuration>
+	                <!-- 注意imageName一定要是符合正则[a-z0-9-_.]的，否则构建不会成功 -->
+	                <!-- 详见：https://github.com/spotify/docker-maven-plugin    Invalid repository name ... only [a-z0-9-_.] are allowed-->
+	                <!-- <imageName>wulinyun/spring-boot-docker</imageName> -->
+	                
+	                <!-- 如果要将docker镜像push到DockerHub上去的话，这边的路径要和repo路径一致 -->
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					
+					<!-- 阿里镜像仓库使用:分隔
+					<imageName>${docker.image.prefix}:${project.artifactId}-${project.version}</imageName>
+					 -->
+	               <!--  <baseImage>java</baseImage>
+	                <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint> -->
+	                <!-- 指定Dockerfile所在的路径 -->
+					<dockerDirectory>${basedir}/src/main/resources</dockerDirectory>
+	                <resources>
+	                    <resource>
+	                        <targetPath>/</targetPath>
+	                        <directory>${project.build.directory}</directory>
+	                        <include>${project.build.finalName}.jar</include>
+	                    </resource>
+	                </resources>
+	                <!-- 以下两行是为了docker push到Docker仓库中使用的。 -->
+	                <!-- PCF私有镜像仓库
+	                <serverId>docker-pcf-harbor</serverId>
+					<registryUrl>https://harbor.landaudev.com</registryUrl> 
+					-->
+					<!-- k8s私有镜像仓库 -->
+					<serverId>docker-k8s-harbor</serverId>
+					<registryUrl>https://harbor.k8s.landaudev.com</registryUrl>
+					
+					 <!-- 比格云k8s私有镜像仓库
+					<serverId>docker-bigger-k8s-harbor</serverId>
+					<registryUrl>https://harbor.biggerk8s.landaudev.com</registryUrl>
+					  -->
+					 <!-- 阿里云私有镜像仓库 
+					<serverId>docker-aliyun-harbor</serverId>
+					<registryUrl>registry.cn-shanghai.aliyuncs.com</registryUrl>
+					 -->
+	            </configuration>
+	        </plugin>
+
+			<!---sonar-maven-plugin -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>2.7.1</version>
+			</plugin>
+		</plugins>
+		
+	</build>
+	<!-- 本地仓库发布包到私服 -->
+	<distributionManagement>
+        <repository>
+            <id>landa-mas-releases</id>
+            <name>landa-mas releases Repository</name>
+            <url>http://nexus.landaudev.com:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>landa-mas-snapshots</id>
+            <name>landa-mas snapshots Repository</name>
+            <url>http://nexus.landaudev.com:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+</project>

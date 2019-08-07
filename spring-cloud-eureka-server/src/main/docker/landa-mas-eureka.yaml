@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    k8s-app: landa-mas-eureka
+  name: landa-mas-eureka
+  namespace: kube-system
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s-app: landa-mas-eureka
+  template:
+    metadata:
+      labels:
+        k8s-app: landa-mas-eureka
+    spec:
+      imagePullSecrets:
+      - name: landa-mas-secret
+      containers:
+      - name: landa-mas-eureka
+        image: registry.cn-hangzhou.aliyuncs.com/landa/landa-mas:landa-mas-eureka-v1.0
+        ports:
+        - containerPort: 8761
