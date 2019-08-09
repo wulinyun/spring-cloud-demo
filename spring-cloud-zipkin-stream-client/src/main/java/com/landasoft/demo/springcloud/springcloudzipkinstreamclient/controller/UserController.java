@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +27,18 @@ public class UserController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    @Qualifier("originRestTemplate")
+    private RestTemplate originRestTemplate;
+
     @Bean
     @LoadBalanced
     public RestTemplate getRestTemplate(){
+        return new RestTemplate();
+    }
+
+    @Bean(name = {"originRestTemplate"})
+    public RestTemplate RestTemplate(){
         return new RestTemplate();
     }
 
@@ -43,7 +53,7 @@ public class UserController {
     @GetMapping("/call/{id}")
     public String callHome(@PathVariable String id){
         logger.info("calling from trace demo backend");
-        String result= this.restTemplate.getForObject("http://localhost:11022/call/" + id, String.class);
+        String result= this.originRestTemplate.getForObject("http://localhost:11022/call/" + id, String.class);
         return result+" world";
     }
 
@@ -77,14 +87,14 @@ public class UserController {
     @GetMapping("/call1/{id}")
     public String callHome1(@PathVariable String id){
         logger.info("calling from trace demo backend");
-        String result= this.restTemplate.getForObject("http://localhost:11022/call1/" + id, String.class);
+        String result= this.originRestTemplate.getForObject("http://localhost:11022/call1/" + id, String.class);
         return result+" world";
     }
     @ApiOperation(value = "直接调用另外一个服务")
     @GetMapping("/call2/{id}")
     public String callSpringBootDocker(@PathVariable String id){
         logger.info("calling from trace demo backend spring-docker-demo");
-        String result= this.restTemplate.getForObject("http://localhost:8080/rest/image/listImageDatas?userId=" + id, String.class);
+        String result= this.originRestTemplate.getForObject("http://localhost:8080/rest/image/listImageDatas?userId=" + id, String.class);
         return result+" world";
     }
 }
