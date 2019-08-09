@@ -10,7 +10,6 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,13 +24,14 @@ public class UserController {
 
 
     @Autowired
-    private RestTemplate restTemplate;
+    @Qualifier("loadBalancedRestTemplate")
+    private RestTemplate loadBalancedRestTemplate;
 
     @Autowired
     @Qualifier("originRestTemplate")
     private RestTemplate originRestTemplate;
 
-    @Bean
+    @Bean(name = {"loadBalancedRestTemplate"})
     @LoadBalanced
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
@@ -80,7 +80,7 @@ public class UserController {
     @GetMapping("/call_e/{id}")
     public String callHomeE(@PathVariable String id){
         logger.info("calling from trace demo backend by eureka");
-        String result= this.restTemplate.getForObject("http://landa-mas-zipkin-stream-client-backend/call/" + id, String.class);
+        String result= this.loadBalancedRestTemplate.getForObject("http://landa-mas-zipkin-stream-client-backend/call/" + id, String.class);
         return result+" world by eureka";
     }
     @ApiOperation(value = "直接接口地址调用中转调用另外一个服务")
