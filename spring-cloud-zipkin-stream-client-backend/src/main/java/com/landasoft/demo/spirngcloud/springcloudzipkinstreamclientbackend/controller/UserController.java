@@ -1,9 +1,11 @@
 package com.landasoft.demo.spirngcloud.springcloudzipkinstreamclientbackend.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,12 +28,14 @@ public class UserController {
         return new RestTemplate();
     }
 
-    @RequestMapping("/call/{id}")
+    @GetMapping("/call/{id}")
+    @ApiOperation(value = "call返回接口信息")
     public String callHome(@PathVariable String id){
         logger.info("calling trace demo backend");
         return "hello"+id;
     }
-    @RequestMapping("/call1/{id}")
+    @GetMapping("/call1/{id}")
+    @ApiOperation(value = "call返回其它服务接口信息")
     public String callSpringBootDocker(@PathVariable String id){
         logger.info("calling from trace demo backend spring-docker-demo");
         String result= this.restTemplate.getForObject("http://localhost:8080/rest/image/listImageDatas?userId=" + id, String.class);
