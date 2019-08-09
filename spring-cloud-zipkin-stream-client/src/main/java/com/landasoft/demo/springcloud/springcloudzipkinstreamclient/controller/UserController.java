@@ -31,17 +31,6 @@ public class UserController {
     @Qualifier("originRestTemplate")
     private RestTemplate originRestTemplate;
 
-    @Bean(name = {"loadBalancedRestTemplate"})
-    @LoadBalanced
-    public RestTemplate getRestTemplate(){
-        return new RestTemplate();
-    }
-
-    @Bean(name = {"originRestTemplate"})
-    public RestTemplate RestTemplate(){
-        return new RestTemplate();
-    }
-
     @Autowired
     private ZipkinStreamClientBackendFeign zipkinStreamClientBackendFeign;
     /**
