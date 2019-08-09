@@ -25,3 +25,10 @@ eureka:
       defaultZone: http://127.0.0.1:8761/eureka/
   instance:
     prefer-ip-address: true
+
+# Swagger界面内容配置
+swagger:
+  title: landa-mas-zipkin-stream-client API接口文档
+  description: landa-mas-zipkin-stream-client Api Documentation
+  version: 1.0.0
+  show: true
