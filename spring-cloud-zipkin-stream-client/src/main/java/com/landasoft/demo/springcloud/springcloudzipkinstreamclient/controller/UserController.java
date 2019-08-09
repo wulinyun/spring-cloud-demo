@@ -1,6 +1,7 @@
 package com.landasoft.demo.springcloud.springcloudzipkinstreamclient.controller;
 
 import com.landasoft.demo.springcloud.springcloudzipkinstreamclient.feign.ZipkinStreamClientBackendFeign;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
  * @date 2019/8/5  18:45
  */
 @RestController
+@Api(description = "客户端用户管理接口")
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
