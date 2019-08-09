@@ -1,8 +1,10 @@
 package com.landasoft.demo.springcloud.springcloudzipkinstreamclient.controller;
 
+import com.landasoft.demo.springcloud.springcloudzipkinstreamclient.feign.ZipkinStreamClientBackendFeign;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,15 +25,48 @@ public class UserController {
     private RestTemplate restTemplate;
 
     @Bean
+    @LoadBalanced
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
     }
 
+    @Autowired
+    private ZipkinStreamClientBackendFeign zipkinStreamClientBackendFeign;
+    /**
+     * 直接调用接口地址
+     * @param id
+     * @return
+     */
     @RequestMapping("/call/{id}")
     public String callHome(@PathVariable String id){
         logger.info("calling from trace demo backend");
         String result= this.restTemplate.getForObject("http://localhost:11022/call/" + id, String.class);
         return result+" world";
+    }
+
+    /**
+     * 通过feign调用接口地址
+     * @param id
+     * @return
+     */
+    @RequestMapping("/call_f/{id}")
+    public String callHomeF(@PathVariable String id){
+        logger.info("calling from trace demo backend by feign");
+        //String result= this.restTemplate.getForObject("http://localhost:11022/call/" + id, String.class);
+        String result = zipkinStreamClientBackendFeign.call(id);
+        return result+" world by feign ";
+    }
+
+    /**
+     * 通过注册中心的服务名称调用接口
+     * @param id
+     * @return
+     */
+    @RequestMapping("/call_e/{id}")
+    public String callHomeE(@PathVariable String id){
+        logger.info("calling from trace demo backend by eureka");
+        String result= this.restTemplate.getForObject("http://landa-mas-zipkin-stream-client-backend/call/" + id, String.class);
+        return result+" world by eureka";
     }
     @RequestMapping("/call1/{id}")
     public String callHome1(@PathVariable String id){
