@@ -3,20 +3,22 @@ server:
 spring:
   application:
     name: landa-mas-zipkin-stream-client
-  rabbitmq:
-    host: ${rabbitmq.host:192.168.223.133}
-    port: ${rabbitmq.port:5672}
-    username: ${rabbitmq.username:admin}
-    password: ${rabbitmq.password:admin}
-  zipkin:
-    sender:
-      type: rabbit
-  sleuth:
-      web:
-        client:
-          enabled: true
-      sampler:
-        probability: 1.0 # 采用比例，默认 0.1 全部采样 1.0
+
+##异步rabbit调用链路的配置如果不用不需要配置
+#  rabbitmq:
+#    host: ${rabbitmq.host:192.168.223.133}
+#    port: ${rabbitmq.port:5672}
+#    username: ${rabbitmq.username:admin}
+#    password: ${rabbitmq.password:admin}
+#  zipkin:
+#    sender:
+#      type: rabbit
+#  sleuth:
+#      web:
+#        client:
+#          enabled: true
+#      sampler:
+#        probability: 1.0 # 采用比例，默认 0.1 全部采样 1.0
 
 ## cloud
 eureka:
@@ -33,6 +35,6 @@ swagger:
   version: 1.0.0
   show: true
   contact:
-      name: wulinyun
-      url:
-      email: lin.wu@landasoft.com
+    name: wulinyun
+    url:
+    email: lin.wu@landasoft.com

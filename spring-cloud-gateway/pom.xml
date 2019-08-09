@@ -84,7 +84,7 @@
             <artifactId>HdrHistogram</artifactId>
             <version>2.1.7</version>
         </dependency>
-        <!-- zipkin rabbitmq sender
+        <!-- zipkin rabbitmq sender 调用链路的配置依赖，如果不用不需要引入配置-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>
@@ -93,7 +93,7 @@
             <groupId>org.springframework.amqp</groupId>
             <artifactId>spring-rabbit</artifactId>
         </dependency>
-        -->
+
         <!-- swagger begin -->
         <dependency>
             <groupId>io.springfox</groupId>

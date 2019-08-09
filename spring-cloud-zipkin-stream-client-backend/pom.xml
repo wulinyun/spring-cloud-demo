@@ -38,7 +38,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- rabbitmq sender-->
+        <!-- rabbitmq sender 调用链路的配置依赖，如果不用不需要引入配置-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>

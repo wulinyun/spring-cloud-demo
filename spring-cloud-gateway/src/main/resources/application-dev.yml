@@ -18,6 +18,8 @@ swagger:
     name: wulinyun
     url:
     email: lin.wu@landasoft.com
+
+##异步rabbit调用链路的配置如果不用不需要配置
 #spring:
 #  rabbitmq:
 #    host: ${rabbitmq.host:192.168.223.133}
