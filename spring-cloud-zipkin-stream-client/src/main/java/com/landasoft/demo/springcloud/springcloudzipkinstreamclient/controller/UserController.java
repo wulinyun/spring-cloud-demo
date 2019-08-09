@@ -6,8 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -69,6 +67,7 @@ public class UserController {
     @GetMapping("/call_e/{id}")
     public String callHomeE(@PathVariable String id){
         logger.info("calling from trace demo backend by eureka");
+        //landa-mas-zipkin-stream-client-backend的值为被调用服务中配置的spring.application.name的值
         String result= this.loadBalancedRestTemplate.getForObject("http://landa-mas-zipkin-stream-client-backend/call/" + id, String.class);
         return result+" world by eureka";
     }
