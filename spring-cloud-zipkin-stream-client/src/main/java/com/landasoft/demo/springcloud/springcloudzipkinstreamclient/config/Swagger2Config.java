@@ -37,6 +37,15 @@ public class Swagger2Config {
     @Value("${swagger.version}")
     private String version;
 
+    @Value("${swagger.contact.name}")
+    private String name;
+
+    @Value("${swagger.contact.url}")
+    private String url;
+
+    @Value("${swagger.contact.email}")
+    private String email;
+
     @Value("${swagger.show}")
     private boolean swaggerShow;
     @Bean
@@ -77,6 +86,7 @@ public class Swagger2Config {
         return new ApiInfoBuilder()
                 .title(title)
                 .description(description)
+                .contact(new Contact(name, url, email))
                 .version(version)
                 .build();
     }
