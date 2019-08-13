@@ -1,4 +1,5 @@
 package com.landasoft.mas.demo.docker.controller;
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,13 @@ public class HelloController {
 	private static final Log logger = LogFactory.getLog(HelloController.class);
 	@RequestMapping("/")
     public String home() {
-		logger.info("Hello Docker World Update！！！！！！");
+        /*//模拟处理业务耗时
+        try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+        logger.info("Hello Docker World Update！！！！！！");
         return "Hello Docker World Update 88888888888888888";
     }
     @RequestMapping("/call1/{id}")
