@@ -1,4 +1,4 @@
 
 spring:
   config:
-    location: /config
+    location: /app/config
