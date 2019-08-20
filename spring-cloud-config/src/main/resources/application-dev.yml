@@ -1,0 +1,5 @@
+server:
+  port: 8990
+
+demo:
+  msg: 33333333
