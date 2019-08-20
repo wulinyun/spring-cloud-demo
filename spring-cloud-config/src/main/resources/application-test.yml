@@ -2,4 +2,4 @@ server:
   port: 9990
 
 demo:
-  msg: 33333333
+  msg: 66666666
