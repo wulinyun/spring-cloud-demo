@@ -60,6 +60,7 @@
     </dependencies>
 
     <build>
+        <finalName>spring-boot-war</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
