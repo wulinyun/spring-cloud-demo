@@ -1,0 +1,9 @@
+---
+applications:
+- name: spring-boot-demo2-prod
+  memory: 1024M
+  path: target/spring-boot-demo.war
+  host: spring-boot-demo2-prod
+  domain: landaudev.com
+  env:
+    TZ: Asia/Shanghai

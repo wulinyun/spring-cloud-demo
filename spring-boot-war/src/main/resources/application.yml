@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+#eureka:
+ # instance:
+ #   hostname: eureka-server
+ # client:
+ #   register-with-eureka: true
+ #   fetch-registry: true
+ #   service-url:
+ #     defaultZone: http://eureka-server:9090/eureka/
+ # server:
+ #   wait-time-in-ms-when-sync-empty: 0
+ #   enable-self-preservation: false
