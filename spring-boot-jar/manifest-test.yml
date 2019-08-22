@@ -1,0 +1,9 @@
+---
+applications:
+- name: spring-boot-demo1-test
+  memory: 1024M
+  path: target/spring-boot-demo.jar
+  host: spring-boot-demo1-test
+  domain: landaudev.com
+  env:
+    TZ: Asia/Shanghai
