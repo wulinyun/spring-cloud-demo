@@ -32,7 +32,7 @@
     </dependencies>
 
     <build>
-        <finalName>spring-boot-jar</finalName> <!-- 指定package生成的文件名为spring-boot-demo.jar -->
+        <finalName>spring-boot-demo</finalName> <!-- 指定package生成的文件名为spring-boot-demo.jar -->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
