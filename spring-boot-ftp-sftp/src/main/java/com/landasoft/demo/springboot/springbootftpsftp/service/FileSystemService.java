@@ -36,6 +36,14 @@ public interface FileSystemService {
     File downloadFile(String targetPath) throws Exception;
 
     /**
+     * 获取指定路径文件的文件流
+     * @param targetPath
+     * @return
+     * @throws Exception
+     */
+    InputStream getDownloadFileInputStream(String targetPath) throws Exception;
+
+    /**
      * 删除指定路径的文件
      * @param targetPath    文件路径
      * @return
