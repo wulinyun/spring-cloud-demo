@@ -9,6 +9,7 @@ import org.springframework.util.unit.DataUnit;
 import javax.servlet.MultipartConfigElement;
 
 /**
+ * 文件上传限制配置
  * @author 伍林云
  * @date 2019/8/23  19:43
  */
