@@ -1,10 +1,15 @@
 package com.landasoft.demo.springboot.springbootftpsftp.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 返回值类
  * @author 伍林云
  * @date 2019/8/23  18:57
  */
+@Getter
+@Setter
 public class Message {
     //0表示成功;-1表示失败
     int status;
@@ -18,4 +23,5 @@ public class Message {
         this.status = status;
         this.message = message;
     }
+
 }

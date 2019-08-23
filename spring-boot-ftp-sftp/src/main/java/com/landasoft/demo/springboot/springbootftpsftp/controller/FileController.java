@@ -29,7 +29,7 @@ public class FileController {
     private DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
     @ApiOperation(value="文件上传")
     @PostMapping("/upload")
-    public Object upload(MultipartFile fileUpload){
+    public Message upload(MultipartFile fileUpload){
         //获取文件名
         String fileName = fileUpload.getOriginalFilename();
         //获取文件后缀名
@@ -43,10 +43,10 @@ public class FileController {
             //将图片保存到远程服务器文件夹里
             //fileUpload.transferTo(new File(filePath+fileName));
             fileSystemService.uploadFile(filePath,fileUpload.getInputStream());
-            return new Message(0,"success to upload");
+            return new Message(0,"success to upload "+filePath);
         } catch (Exception e) {
             e.printStackTrace();
-            return new Message(-1,"fail to upload");
+            return new Message(-1,"fail to upload "+filePath);
         }
     }
 }
