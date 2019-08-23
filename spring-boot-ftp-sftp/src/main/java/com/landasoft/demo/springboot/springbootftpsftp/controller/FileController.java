@@ -36,8 +36,6 @@ public class FileController {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         //重新生成文件名
         //fileName = UUID.randomUUID()+suffixName;
-        //使用原始文件名称
-        fileName = fileUpload.getName();
         //指定服务器文件夹存储图片
         //以日期为文件夹，自己可以根据自己的规则定义文件夹规则
         String filePath = dateFormat.format(new Date())+"/"+fileName;
