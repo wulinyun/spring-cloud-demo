@@ -62,14 +62,14 @@ public class FileController {
     public Message download(@RequestParam(value = "targetPath")String targetPath ,HttpServletResponse response) throws Exception{
         // 如果文件名不为空，则进行下载
         File file = fileSystemService.downloadFile(targetPath);
-        String fileName = targetPath.substring(targetPath.lastIndexOf("/"));
+        String fileName = targetPath.substring(targetPath.lastIndexOf("/")+1);
         if (file.exists()) {
             // 如果文件名存在，则进行下载
                 // 配置文件下载
                 response.setHeader("content-type", "application/octet-stream");
                 response.setContentType("application/octet-stream");
                 // 下载文件能正常显示中文
-                response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+                response.setHeader("Content-Disposition", "attachment;filename="+URLEncoder.encode(fileName, "UTF-8"));
                 try {
                     OutputStream os = response.getOutputStream();
                     IOUtils.copy(new FileInputStream(file),os);
@@ -79,6 +79,7 @@ public class FileController {
                     System.out.println("Download the song failed!"+e.getMessage());
                 }
                 finally {
+                    System.out.println("getAbsolutePath:"+file.getAbsolutePath());
                     file.delete();
                 }
         }
