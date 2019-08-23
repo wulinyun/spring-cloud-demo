@@ -1,0 +1,19 @@
+#============================================================================
+# SFTP Client Setting
+#============================================================================
+sftp:
+  client:
+    protocol: sftp  #协议
+    host: 192.168.223.133 #ip地址
+    port: 22 #端口
+    username: sftp  #用户名
+    password: sftp  #密码
+    root: /home/sftp/ #根路径
+    privateKey: #秘钥文件路径
+    passphrase: #秘钥的密码
+    sessionStrictHostKeyChecking: #
+    sessionConnectTimeout:  15000  #session连接超时时间
+    channelConnectedTimeout:  15000 #channel连接超时时间
+
+
+
