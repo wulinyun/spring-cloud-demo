@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * 使用jsch Jar实现SFTP上传、下载、创建、删除文件
@@ -162,8 +163,11 @@ public class SftpFileSystemServiceImpl implements FileSystemService {
         try {
             sftp.cd(config.getRoot());
             log.info("Change path to {}"+config.getRoot());
-
-            File file = new File(targetPath.substring(targetPath.lastIndexOf("/") + 1));
+            String fileName=targetPath.substring(targetPath.lastIndexOf("/") + 1);
+            //获取文件后缀名
+            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            //生成新的文件
+            File file = new File(UUID.randomUUID().toString()+suffixName);
 
             outputStream = new FileOutputStream(file);
             sftp.get(targetPath, outputStream);
