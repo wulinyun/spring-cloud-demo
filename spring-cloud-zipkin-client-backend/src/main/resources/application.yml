@@ -5,3 +5,4 @@ spring:
     name: landa-mas-zipkin-client-backend
   zipkin:
     base-url: http://localhost:11008 #http
+#    base-url: http://spring-cloud-tracing:9411 #http
