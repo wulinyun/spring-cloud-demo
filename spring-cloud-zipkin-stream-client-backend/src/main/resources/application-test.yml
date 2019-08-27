@@ -1,9 +1,4 @@
-server:
-  port: 11022
 spring:
-  application:
-    name: landa-mas-zipkin-stream-client-backend
-
 ##异步rabbit调用链路的配置如果不用不需要配置
   rabbitmq:
     host: ${rabbitmq.host:spring-cloud-rabbitmq}
@@ -27,14 +22,3 @@ eureka:
       defaultZone: http://${eureka.host:spring-cloud-discovery}:8761/eureka/ #spring-cloud-discovery
   instance:
     prefer-ip-address: true
-
-# Swagger界面内容配置
-swagger:
-  title: landa-mas-zipkin-stream-client-backend API接口文档
-  description: landa-mas-zipkin-stream-client-backend Api Documentation
-  version: 1.0.0
-  show: true
-  contact:
-    name: wulinyun
-    url:
-    email: lin.wu@landasoft.com
