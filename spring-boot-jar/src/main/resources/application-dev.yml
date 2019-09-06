@@ -1,4 +1,10 @@
 server:
   port: 8080
+  #程序增加SSL证书
+  ssl:
+    key-store: classpath:pgiff.keystore
+    key-store-password: iffadmin
+    key-store-type: JKS
+    key-alias: pgiff
 demo:
   msg: "hello dev update!"
