@@ -1,3 +1,5 @@
 spring:
+  application:
+    name: landa-mas-spring-boot-demo-jar
   profiles:
     active: dev
