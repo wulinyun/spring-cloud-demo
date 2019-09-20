@@ -5,11 +5,15 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
 
+import com.landasoft.demo.springboot.springbootjar.util.IpAddressUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 public class TestController {
 	    @Autowired  
@@ -41,5 +45,10 @@ public class TestController {
 	    public String helloHtml(Map<String,Object> map){  
 	       map.put("hello","from TemplateController.helloHtml");  
 	       return"/helloHtml";  
-	    }  
+	    }
+		@RequestMapping("/getIp")
+		public String obtainIP(HttpServletRequest request){
+	    	String ip = IpAddressUtils.getIpAddr(request);
+	    	return  ip;
+		}
 }
