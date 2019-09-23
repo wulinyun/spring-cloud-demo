@@ -3,6 +3,8 @@ FROM 10.128.1.201/system_containers/tomcat:8
 MAINTAINER wulinyun "lin.wu@landasoft.com"
 WORKDIR /usr/local
 ENV TZ=Asia/Shanghai
+#设置中文字符集
+ENV LANG=C.UTF-8
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #下面增加的是tc的APM要求CMD java $JAVA_OPTS -Dpinpoint.agentId=${POD_IP} -jar /app/app.jar
 #-javaagent:/tenxcloud/pinpoint-agent/pinpoint-bootstrap-1.7.3.jar -Dpinpoint.applicationName=spring-boot-demo-jar -Dpinpoint.agentId=${POD_IP}
