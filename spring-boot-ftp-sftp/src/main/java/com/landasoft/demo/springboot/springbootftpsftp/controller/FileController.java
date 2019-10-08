@@ -4,7 +4,7 @@ import com.landasoft.demo.springboot.springbootftpsftp.domain.Message;
 import com.landasoft.demo.springboot.springbootftpsftp.service.FileSystemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.io.IOUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,6 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author 伍林云
@@ -82,6 +81,29 @@ public class FileController {
                     System.out.println("getAbsolutePath:"+file.getAbsolutePath());
                     file.delete();
                 }
+        }
+        return null;
+    }
+    @ApiOperation(value="浏览器显示图片")
+    @GetMapping("/showPic")
+    public Message showPic(@RequestParam(value = "targetPath")String targetPath ,HttpServletResponse response) throws Exception{
+        // 如果文件名不为空，则进行下载
+        InputStream inputStream = fileSystemService.getDownloadFileInputStream(targetPath);
+        String fileName = targetPath.substring(targetPath.lastIndexOf("/")+1);
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        if (inputStream!=null) {
+            // 如果文件名存在，则进行图片展示
+            response.setContentType("\"image/"+suffixName.substring(suffixName.lastIndexOf(".")+1)+"\"");
+            try {
+                OutputStream os = response.getOutputStream();
+                IOUtils.copy(inputStream,os);
+            }
+            catch (Exception e) {
+                System.out.println("Show the picture failed!"+e.getMessage());
+            }
+            finally {
+                inputStream.close();
+            }
         }
         return null;
     }
