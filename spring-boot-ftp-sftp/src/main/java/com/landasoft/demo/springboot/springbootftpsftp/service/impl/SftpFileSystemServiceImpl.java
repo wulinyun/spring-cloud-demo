@@ -141,6 +141,7 @@ public class SftpFileSystemServiceImpl implements FileSystemService {
                 log.error("Remote path error. path:{}"+targetPath);
                 throw new Exception("Upload File failure");
             }
+            sftp.setFilenameEncoding("UTF-8");
             sftp.put(inputStream, fileName);
             return true;
         } catch (Exception e) {
@@ -159,6 +160,7 @@ public class SftpFileSystemServiceImpl implements FileSystemService {
     @Override
     public File downloadFile(String targetPath) throws Exception {
         ChannelSftp sftp = this.createSftp();
+        sftp.setFilenameEncoding("UTF-8");
         OutputStream outputStream = null;
         try {
             sftp.cd(config.getRoot());
@@ -190,8 +192,17 @@ public class SftpFileSystemServiceImpl implements FileSystemService {
         try {
             sftp.cd(config.getRoot());
             log.info("Change path to {}"+config.getRoot());
-            log.info("Download file success. TargetPath: {}"+targetPath);
-            return sftp.get(targetPath);
+            log.info("Download fileInputStream success. TargetPath: {}"+targetPath);
+            InputStream inputStream = sftp.get(targetPath);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = inputStream.read(buffer)) > -1 ) {
+                baos.write(buffer, 0, len);
+            }
+            baos.flush();
+            InputStream input = new ByteArrayInputStream(baos.toByteArray());
+            return input;
         } catch (Exception e) {
             log.error("Download file failure. TargetPath: {}"+targetPath, e);
             throw new Exception("Download File failure");
