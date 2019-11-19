@@ -1,5 +1,11 @@
 server:
   port: 8050
+  #程序增加SSL证书
+#  ssl:
+#    key-store: classpath:pgiff.keystore
+#    key-store-password: iffadmin
+#    key-store-type: JKS
+#    key-alias: pgiff
 ## cloud
 eureka:
   client:
