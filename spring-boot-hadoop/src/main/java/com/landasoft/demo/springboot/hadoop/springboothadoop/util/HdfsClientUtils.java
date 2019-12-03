@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.PrivilegedExceptionAction;
+import java.util.ArrayList;
 
 /**
  * @Author wulinyun
@@ -84,14 +85,16 @@ public class HdfsClientUtils {
         return "删除" + deletePath + " " + b;
     }
     /*得到文件状态*/
-    public static FileStatus[] getFileList (@RequestParam( name ="path",defaultValue="/dzqz/4200002019006010011574405250/1-0017c6fd-9519-4167-aa35-cc51ad00ff90.JWF") String path) throws IOException{
+    public static ArrayList<String> getFileList (@RequestParam( name ="path",defaultValue="/dzqz/4200002019006010011574405250/1-0017c6fd-9519-4167-aa35-cc51ad00ff90.JWF") String path) throws IOException{
+        ArrayList<String>  result = new ArrayList<>();
         connection();
         FileStatus[] fileStatuses = fs.listStatus(new Path(path));
         for (FileStatus fileStatus : fileStatuses) {
             String status = "修改时间:"+fileStatus.getModificationTime() + "是否为目录:"+fileStatus.isDirectory()+"所属组:"+fileStatus.getGroup()+"块大小:"+fileStatus.getBlockSize()+"长度:"+fileStatus.getLen()+"权限:"+fileStatus.getPermission().toString()+"文件路径:"+fileStatus.getPath().toString()+"所属用户:"+fileStatus.getOwner();
             System.out.println(status);
+            result.add(status);
         }
         close();
-        return fileStatuses;
+        return result;
     }
 }
