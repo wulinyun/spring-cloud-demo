@@ -4,15 +4,13 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.security.UserGroupInformation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.PrivilegedExceptionAction;
+import java.util.Map;
 
 /**
  * @Author wulinyun
@@ -100,13 +98,15 @@ public class HadoopController {
         return "删除" + deletePath + " " + b;
     }
     @GetMapping("/getFileList")
-     public void getFileList () throws IOException{
+     public FileStatus[] getFileList (@RequestParam( name ="path",defaultValue="/dzqz/4200002019006010011574405250/1-0017c6fd-9519-4167-aa35-cc51ad00ff90.JWF") String path) throws IOException{
         connection();
-        String hdfsPath = "/dzqz/4200002019006010011574405250/1-0017c6fd-9519-4167-aa35-cc51ad00ff90.JWF";
-        FileStatus[] fileStatuses = fs.listStatus(new Path(hdfsPath));
+        FileStatus[] fileStatuses = fs.listStatus(new Path(path));
         for (FileStatus fileStatus : fileStatuses) {
-            System.out.println("修改时间:"+fileStatus.getModificationTime() + "是否为目录:"+fileStatus.isDirectory()+"所属组:"+fileStatus.getGroup()+"块大小:"+fileStatus.getBlockSize()+"长度:"+fileStatus.getLen()+"权限:"+fileStatus.getPermission().toString()+"文件路径:"+fileStatus.getPath().toString()+"所属用户:"+fileStatus.getOwner());
+            String status = "修改时间:"+fileStatus.getModificationTime() + "是否为目录:"+fileStatus.isDirectory()+"所属组:"+fileStatus.getGroup()+"块大小:"+fileStatus.getBlockSize()+"长度:"+fileStatus.getLen()+"权限:"+fileStatus.getPermission().toString()+"文件路径:"+fileStatus.getPath().toString()+"所属用户:"+fileStatus.getOwner();
+            System.out.println(status);
         }
+        close();
+        return fileStatuses;
     }
 
 }
