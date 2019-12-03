@@ -35,10 +35,14 @@
       <value>node2.hde.h3c.com:2181,node4.hde.h3c.com:2181,node3.hde.h3c.com:2181</value>
     </property>
     
-    <property>
+    <!--<property>
       <name>hadoop.http.authentication.center</name>
       <value>https://11.20.1.18:18443/sso</value>
-    </property>
+    </property>-->
+      <property>
+          <name>hadoop.http.authentication.center</name>
+          <value>https://dataengineserver:18443/sso</value>
+      </property>
     
     <property>
       <name>hadoop.http.authentication.center.listener</name>
