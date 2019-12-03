@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.PrivilegedExceptionAction;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -20,7 +21,7 @@ import java.util.Map;
  * Hadoop的hdfs的一些简单操作
  */
 @RestController
-@RequestMapping("/HadoopController")
+@RequestMapping("/hadoop")
 public class HadoopController {
     //创建文件夹
     @PostMapping("/mkdir")
@@ -46,7 +47,7 @@ public class HadoopController {
         return HdfsClientUtils.delete(deletePath,recursive);
     }
     @GetMapping("/getFileList")
-     public FileStatus[] getFileList (@RequestParam( name ="path",defaultValue="/dzqz/4200002019006010011574405250/1-0017c6fd-9519-4167-aa35-cc51ad00ff90.JWF") String path) throws IOException{
+     public ArrayList<String> getFileList (@RequestParam( name ="path",defaultValue="/dzqz/4200002019006010011574405250/1-0017c6fd-9519-4167-aa35-cc51ad00ff90.JWF") String path) throws IOException{
        return HdfsClientUtils.getFileList(path);
     }
 
