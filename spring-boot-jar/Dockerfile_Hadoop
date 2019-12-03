@@ -1,0 +1,21 @@
+FROM 10.128.1.201/system_containers/java:8
+#FROM 10.128.1.201/system_containers/tomcat:8
+ADD ./hadoop-2.7.7.zip /usr/local/
+#java设置中文字符集
+ENV LANG=en_US.UTF-8
+#tomcat设置中文字符集
+#ENV LANG=C.UTF-8
+#时区设置
+ENV TZ=Asia/Shanghai
+#增加hadoop环境
+ENV HADOOP_HOME=/usr/local/hadoop-2.7.7
+ENV PATH=.:$HADOOP_HOME/bin:$PATH
+#增加/etc/hosts/ --测试环境
+RUN echo '11.20.1.11      node1.hde.h3c.com       node1' >> /etc/hosts
+RUN echo '11.20.1.12      node2.hde.h3c.com       node2' >> /etc/hosts
+RUN echo '11.20.1.13      node3.hde.h3c.com       node3' >> /etc/hosts
+RUN echo '11.20.1.14      node4.hde.h3c.com       node4' >> /etc/hosts
+RUN echo '11.20.1.15      node5.hde.h3c.com       node5' >> /etc/hosts
+RUN echo '11.20.1.16      node6.hde.h3c.com       node6' >> /etc/hosts
+RUN echo '11.20.1.17      node7.hde.h3c.com       node7' >> /etc/hosts
+RUN echo '11.20.1.18      DataEngineServer       Server' >> /etc/hosts
