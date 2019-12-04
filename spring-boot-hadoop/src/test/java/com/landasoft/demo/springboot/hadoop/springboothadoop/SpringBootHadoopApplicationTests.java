@@ -13,28 +13,22 @@ class SpringBootHadoopApplicationTests {
     void contextLoads() {
     }
     @Test
-    public void deleteTest(){
-        String deletePath = "/hi";
+    public void mkdir() throws Exception {
+        String hello = hadoopController.mkdir("/dzqz/test");
+        System.out.println(hello);
+    }
+    @Test
+    public void deleteDir(){
+        String deletePath = "/dzqz/test";
         try {
             hadoopController.delete(deletePath,false);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    @Test
-    public void mkdir() throws Exception {
-        String hello = hadoopController.mkdir("/dzqz/test");
-        System.out.println(hello);
-    }
-
     @Test
     public void uploadFile() throws Exception {
         hadoopController.uploadFile("D:\\src\\upload.txt","/dzqz/test/test.txt",4096);
-    }
-    @Test
-    public void downloadFile() throws Exception{
-        hadoopController.downloadFile("/dzqz/test.txt","D:\\src\\test.txt",128*1024);
     }
     @Test
     public void listFiles() throws Exception {
@@ -42,7 +36,12 @@ class SpringBootHadoopApplicationTests {
         hadoopController.getFileList(path);
     }
     @Test
-    public void deleteFile() throws Exception{
-        hadoopController.delete("/dzqz/test",true);
+    public void downloadFile() throws Exception{
+        hadoopController.downloadFile("/dzqz/test.txt","D:\\src\\test.txt",128*1024);
     }
+    @Test
+    public void deleteFile() throws Exception{
+        hadoopController.delete("/dzqz/test.txt",false);
+    }
+
 }
