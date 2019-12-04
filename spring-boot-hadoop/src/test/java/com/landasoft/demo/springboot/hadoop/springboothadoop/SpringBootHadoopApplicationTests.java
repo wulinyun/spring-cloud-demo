@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.File;
+
 @SpringBootTest
 class SpringBootHadoopApplicationTests {
     @Autowired
@@ -28,7 +30,9 @@ class SpringBootHadoopApplicationTests {
     }
     @Test
     public void uploadFile() throws Exception {
-        hadoopController.uploadFile("D:\\src\\upload.txt","/dzqz/test/test.txt",4096);
+        String localPath = "D:\\src\\upload.txt";
+        File file = new File(localPath);
+        hadoopController.uploadFile(localPath,"/dzqz/test.txt",Integer.valueOf(file.length()+""));
     }
     @Test
     public void listFiles() throws Exception {
