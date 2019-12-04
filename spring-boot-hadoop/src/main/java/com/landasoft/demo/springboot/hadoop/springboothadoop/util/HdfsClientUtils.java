@@ -10,7 +10,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.PrivilegedExceptionAction;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @Author wulinyun
@@ -86,11 +88,13 @@ public class HdfsClientUtils {
     }
     /*得到文件状态*/
     public static ArrayList<String> getFileList (@RequestParam( name ="path",defaultValue="/dzqz/4200002019006010011574405250/1-0017c6fd-9519-4167-aa35-cc51ad00ff90.JWF") String path) throws IOException{
+        //可以精确到秒  2017-4-16 12:43:37
+        DateFormat dateFormat = DateFormat.getDateTimeInstance();
         ArrayList<String>  result = new ArrayList<>();
         connection();
         FileStatus[] fileStatuses = fs.listStatus(new Path(path));
         for (FileStatus fileStatus : fileStatuses) {
-            String status = "修改时间:"+fileStatus.getModificationTime() + "是否为目录:"+fileStatus.isDirectory()+"所属组:"+fileStatus.getGroup()+"块大小:"+fileStatus.getBlockSize()+"长度:"+fileStatus.getLen()+"权限:"+fileStatus.getPermission().toString()+"文件路径:"+fileStatus.getPath().toString()+"所属用户:"+fileStatus.getOwner();
+            String status = "修改时间:"+dateFormat.format(new Date(fileStatus.getModificationTime())) + "是否为目录:"+fileStatus.isDirectory()+"所属组:"+fileStatus.getGroup()+"块大小:"+fileStatus.getBlockSize()+"长度:"+fileStatus.getLen()+"权限:"+fileStatus.getPermission().toString()+"文件路径:"+fileStatus.getPath().toString()+"所属用户:"+fileStatus.getOwner();
             System.out.println(status);
             result.add(status);
         }
