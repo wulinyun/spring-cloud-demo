@@ -10,4 +10,4 @@ spring:
         enabled: true
 logging:
   level:
-    com.cxt.demo: debug
+    com.landasoft.demo: debug
