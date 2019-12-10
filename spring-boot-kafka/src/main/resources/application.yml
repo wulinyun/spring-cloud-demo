@@ -1,0 +1,16 @@
+#============== kafka ===================
+spring:
+  kafka:
+    # 指定kafka 代理地址，可以多个
+    bootstrap-servers: localhost:9092
+    #=============== provider  =======================
+    producer:
+      retries: 0 #设置大于0的值，则客户端会将发送失败的记录重新发送
+      #每次批量发送消息的数量
+      batch-size: 16384
+      buffer-memory: 33554432
+      #指定消息key和消息体的编解码方式 UTF-8
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
