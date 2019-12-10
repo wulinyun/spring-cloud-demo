@@ -5,7 +5,8 @@ spring:
     bootstrap-servers: localhost:9092
     #=============== provider  =======================
     producer:
-      retries: 0 #设置大于0的值，则客户端会将发送失败的记录重新发送
+      #设置大于0的值，则客户端会将发送失败的记录重新发送
+      retries: 1
       #每次批量发送消息的数量
       batch-size: 16384
       buffer-memory: 33554432
@@ -13,4 +14,11 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
+    consumer:
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: 0
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
+#swagger的开启关闭开关属性
+swagger:
+  enable: true
