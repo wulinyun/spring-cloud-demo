@@ -1,10 +1,10 @@
-package com.landasoft.demo.springboot.elasticsearch.springbootelasticsearch;
+package com.landasoft.demo.springboot.kafka.springbootkafka;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringBootElasticsearchApplicationTests {
+class SpringBootKafkaApplicationTests {
 
     @Test
     void contextLoads() {
