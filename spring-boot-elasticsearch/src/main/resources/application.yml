@@ -1,1 +1,20 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: spring-boot-elasticsearch
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch-cluster
+      cluster-nodes: 192.168.223.133:9300
+  jackson:
+    default-property-inclusion: non_null
 
+index-entity:
+  configs:
+    - docCode: store
+      indexName: store
+      type: base
+      documentPath: com.lifengdi.document.StoreDocument
