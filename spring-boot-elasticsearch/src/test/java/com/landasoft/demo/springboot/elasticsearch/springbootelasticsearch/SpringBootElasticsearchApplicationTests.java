@@ -44,4 +44,9 @@ class SpringBootElasticsearchApplicationTests {
         storeDocument.setBaseInfo(baseInfo);
         storeRepository.save(storeDocument);
     }
+    @Test
+    public void  testDelete(){
+        //删除索引
+        System.out.println(elasticsearchTemplate.deleteIndex(StoreDocument.class));
+    }
 }
