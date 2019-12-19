@@ -18,3 +18,7 @@ index-entity:
       indexName: store
       type: base
       documentPath: com.landasoft.demo.springboot.elasticsearch.springbootelasticsearch.document.StoreDocument
+
+#swagger的开启关闭开关属性
+swagger:
+  enable: true
