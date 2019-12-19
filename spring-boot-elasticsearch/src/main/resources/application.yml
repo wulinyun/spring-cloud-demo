@@ -17,4 +17,4 @@ index-entity:
     - docCode: store
       indexName: store
       type: base
-      documentPath: com.lifengdi.document.StoreDocument
+      documentPath: com.landasoft.demo.springboot.elasticsearch.springbootelasticsearch.document.StoreDocument
