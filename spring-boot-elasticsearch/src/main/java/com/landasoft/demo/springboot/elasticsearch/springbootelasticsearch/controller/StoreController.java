@@ -45,7 +45,7 @@ public class StoreController extends BaseController {
      * @return 搜索结果
      */
     @PostMapping("/search")
-    @ApiOperation(value = "搜索")
+    @ApiOperation(value = "搜索分页格式")
     public ResponseResult search(@RequestBody Map<String, String> params) {
 
         return ResponseResult.success(storeSearchService.search(params));
@@ -55,7 +55,7 @@ public class StoreController extends BaseController {
      * @param params 查询参数
      * @return 搜索结果
      */
-    @ApiOperation(value = "搜索")
+    @ApiOperation(value = "搜索List格式")
     @PostMapping("/aggregate")
     public ResponseResult aggregate(@RequestBody Map<String, String> params) {
 
