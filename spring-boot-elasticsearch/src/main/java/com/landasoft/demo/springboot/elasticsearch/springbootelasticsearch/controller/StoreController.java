@@ -5,6 +5,8 @@ import com.landasoft.demo.springboot.elasticsearch.springbootelasticsearch.excep
 import com.landasoft.demo.springboot.elasticsearch.springbootelasticsearch.global.Global;
 import com.landasoft.demo.springboot.elasticsearch.springbootelasticsearch.response.ResponseResult;
 import com.landasoft.demo.springboot.elasticsearch.springbootelasticsearch.search.impl.StoreSearchService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,6 +22,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/store")
+@Api(value = "StoreController",tags = "StoreController")
 public class StoreController extends BaseController {
     @Resource
     private StoreDocumentIndexService storeDocumentIndexService;
@@ -31,6 +34,7 @@ public class StoreController extends BaseController {
      * @return ID
      */
     @PostMapping("/index")
+    @ApiOperation(value = "保存索引")
     public ResponseResult index(@RequestBody Map<String, Object> params) {
 
         return ResponseResult.success(storeDocumentIndexService.index(params));
@@ -41,6 +45,7 @@ public class StoreController extends BaseController {
      * @return 搜索结果
      */
     @PostMapping("/search")
+    @ApiOperation(value = "搜索")
     public ResponseResult search(@RequestBody Map<String, String> params) {
 
         return ResponseResult.success(storeSearchService.search(params));
@@ -50,6 +55,7 @@ public class StoreController extends BaseController {
      * @param params 查询参数
      * @return 搜索结果
      */
+    @ApiOperation(value = "搜索")
     @PostMapping("/aggregate")
     public ResponseResult aggregate(@RequestBody Map<String, String> params) {
 
@@ -61,6 +67,7 @@ public class StoreController extends BaseController {
      * @return 搜索结果
      */
     @PostMapping("/count")
+    @ApiOperation(value = "搜索数量")
     public ResponseResult count(@RequestBody Map<String, String> params) {
 
         return ResponseResult.success(storeSearchService.count(params));
@@ -71,6 +78,7 @@ public class StoreController extends BaseController {
      * @return 搜索结果
      */
     @GetMapping("/get/{id}")
+    @ApiOperation(value = "根据ID获取数据")
     public ResponseResult get(@PathVariable String id) {
         return ResponseResult.success(storeSearchService.get(id));
     }
@@ -80,6 +88,7 @@ public class StoreController extends BaseController {
      * @return ResponseResult
      */
     @PostMapping("/sync/bulk/update")
+    @ApiOperation(value = "批量更新")
     public ResponseResult bulkUpdate(@RequestBody Map<String, String> params) {
         if (!params.containsKey("ids") || !params.containsKey("source")) {
             return ResponseResult.fail(BaseException.NULL_PARAM_EXCEPTION.build());
