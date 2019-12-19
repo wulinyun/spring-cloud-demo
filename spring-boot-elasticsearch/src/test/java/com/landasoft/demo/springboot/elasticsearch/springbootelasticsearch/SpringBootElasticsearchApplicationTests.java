@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 class SpringBootElasticsearchApplicationTests {
     @Resource
     private ElasticsearchTemplate elasticsearchTemplate;
+    @Resource
     private StoreRepository storeRepository;
     @Test
     void contextLoads() {
