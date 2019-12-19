@@ -44,6 +44,10 @@ class SpringBootElasticsearchApplicationTests {
         storeDocument.setBaseInfo(baseInfo);
         storeRepository.save(storeDocument);
     }
+
+    /**
+     * 删除索引
+     */
     @Test
     public void  testDelete(){
         //删除索引
