@@ -24,13 +24,21 @@ class SpringBootElasticsearchApplicationTests {
      * 创建索引，创建映射
      */
     @Test
-    public void testCreate(){
+    public void testCreateIndexOrPutMapping(){
         //创建索引
         System.out.println(elasticsearchTemplate.createIndex(StoreDocument.class));
         //创建映射
-        System.out.println(elasticsearchTemplate.putMapping(StoreDocument.class));
+        //System.out.println(elasticsearchTemplate.putMapping(StoreDocument.class));
     }
 
+    /**
+     * 创建映射
+     */
+    @Test
+    public void testCreatePutMapping(){
+        //创建映射
+        System.out.println(elasticsearchTemplate.putMapping(StoreDocument.class));
+    }
     /**
      * 新增修改文档
      */
