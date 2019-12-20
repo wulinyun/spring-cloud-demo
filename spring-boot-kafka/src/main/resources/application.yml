@@ -2,7 +2,7 @@
 spring:
   kafka:
     # 指定kafka 代理地址，可以多个
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 192.168.223.133:9092
     #=============== provider  =======================
     producer:
       #设置大于0的值，则客户端会将发送失败的记录重新发送
