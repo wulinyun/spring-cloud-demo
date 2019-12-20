@@ -1,6 +1,7 @@
 package com.landasoft.demo.springboot.kafka.springbootkafka.entity;
 
 import lombok.Data;
+import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,24 +12,9 @@ import java.util.Date;
  * @Description
  * @Date 2019/12/10 17:13
  */
+@Data
 public class MessageEntity implements Serializable {
 
     private Date sendTime;//发送时间
     private String msg; //发送消息
-
-    public Date getSendTime() {
-        return sendTime;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setSendTime(Date sendTime) {
-        this.sendTime = sendTime;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 }
