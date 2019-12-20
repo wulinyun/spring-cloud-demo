@@ -1,5 +1,6 @@
 package com.landasoft.demo.springboot.kafka.springbootkafka.consumer;
 
+import com.landasoft.demo.springboot.kafka.springbootkafka.entity.MessageEntity;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +19,15 @@ public class KafkaConsumer {
     @KafkaListener(topics = {"testTopic"})
     public void receiveMessage(String message){
         //收到通道的消息之后执行操作
-        System.out.println("消息1："+message);
-
+        System.out.println("testTopic消息1："+message);
 
     }
+    @KafkaListener(topics = {"testTopic"})
+    public void receiveMessage(MessageEntity message){
+        //收到通道的消息之后执行操作
+        System.out.println("testTopic消息2："+message);
 
+    }
     /**
      * 监听test2主题,有消息就读取
      * @param message
@@ -30,6 +35,6 @@ public class KafkaConsumer {
     @KafkaListener(topics = {"test2"})
     public void receiveMap(String message){
         //收到通道的消息之后执行操作
-        System.out.println("消息2："+message);
+        System.out.println("test2消息3："+message);
     }
 }
