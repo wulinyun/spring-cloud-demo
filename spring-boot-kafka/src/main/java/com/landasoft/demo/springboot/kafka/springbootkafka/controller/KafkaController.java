@@ -29,7 +29,7 @@ public class KafkaController {
     @GetMapping(value = "/test")
     public R test(){
 
-        kafkaSender.sendChannelMess("testTopic","caonima");
+        kafkaSender.sendChannelMess("testTopic","testTopic");
 
         Map<String,Object> map = new HashMap<>();
         map.put("msg","test2");
