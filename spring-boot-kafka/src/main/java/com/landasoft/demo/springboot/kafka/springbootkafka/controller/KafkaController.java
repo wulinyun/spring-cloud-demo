@@ -31,9 +31,6 @@ public class KafkaController {
     @ApiOperation(value = "测试")
     @GetMapping(value = "/test")
     public R test(){
-        //直接发送String消息
-        kafkaSender.sendChannelMess("testTopic","testTopic");
-
         //发送实体对象消息
         MessageEntity messageEntity =new MessageEntity();
         messageEntity.setMsg("testTopic");

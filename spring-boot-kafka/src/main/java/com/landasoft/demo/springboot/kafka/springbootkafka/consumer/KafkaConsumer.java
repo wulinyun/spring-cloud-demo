@@ -1,8 +1,11 @@
 package com.landasoft.demo.springboot.kafka.springbootkafka.consumer;
 
+import com.alibaba.fastjson.JSON;
 import com.landasoft.demo.springboot.kafka.springbootkafka.entity.MessageEntity;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 /**
  * @Author wulinyun
@@ -18,14 +21,9 @@ public class KafkaConsumer {
      */
     @KafkaListener(topics = {"testTopic"})
     public void receiveMessage(String message){
+        MessageEntity messageEntity = JSON.parseObject(message,MessageEntity.class);
         //收到通道的消息之后执行操作
-        System.out.println("testTopic消息1："+message);
-
-    }
-    @KafkaListener(topics = {"testTopic"})
-    public void receiveMessage(MessageEntity message){
-        //收到通道的消息之后执行操作
-        System.out.println("testTopic消息2："+message);
+        System.out.println("testTopic消息1："+messageEntity.toString());
 
     }
     /**
@@ -34,7 +32,8 @@ public class KafkaConsumer {
      */
     @KafkaListener(topics = {"test2"})
     public void receiveMap(String message){
+        Map<String,Object> map = JSON.parseObject(message,Map.class);
         //收到通道的消息之后执行操作
-        System.out.println("test2消息3："+message);
+        System.out.println("test2消息2："+map);
     }
 }
