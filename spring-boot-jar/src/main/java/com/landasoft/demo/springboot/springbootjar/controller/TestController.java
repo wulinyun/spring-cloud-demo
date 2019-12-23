@@ -1,18 +1,21 @@
 package com.landasoft.demo.springboot.springbootjar.controller;
 
+import com.landasoft.demo.springboot.springbootjar.util.IpAddressUtils;
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
-
-import com.landasoft.demo.springboot.springbootjar.util.IpAddressUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class TestController {
@@ -50,5 +53,11 @@ public class TestController {
 		public String obtainIP(HttpServletRequest request){
 	    	String ip = IpAddressUtils.getIpAddr(request);
 	    	return  ip;
+		}
+		@RequestMapping("/getLog")
+		public String getChineseLog(HttpServletRequest request){
+			String chinaStr = "我是中国人";
+			System.out.println(chinaStr);
+			return  chinaStr;
 		}
 }
