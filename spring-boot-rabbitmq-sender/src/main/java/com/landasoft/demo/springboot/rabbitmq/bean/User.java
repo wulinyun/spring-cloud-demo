@@ -1,4 +1,4 @@
-package com.landasoft.demo.springboot.rabbitmq.springbootrabbitmqsender.bean;
+package com.landasoft.demo.springboot.rabbitmq.bean;
 
 import lombok.Data;
 

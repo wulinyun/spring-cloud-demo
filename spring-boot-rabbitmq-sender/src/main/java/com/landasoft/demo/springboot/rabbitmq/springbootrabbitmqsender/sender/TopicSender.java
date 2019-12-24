@@ -1,6 +1,6 @@
 package com.landasoft.demo.springboot.rabbitmq.springbootrabbitmqsender.sender;
 
-import com.landasoft.demo.springboot.rabbitmq.springbootrabbitmqsender.bean.User;
+import com.landasoft.demo.springboot.rabbitmq.bean.User;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
