@@ -1,6 +1,6 @@
 package com.landasoft.demo.springboot.rabbitmq.springbootrabbitmqsender;
 
-import com.landasoft.demo.springboot.rabbitmq.springbootrabbitmqsender.bean.User;
+import com.landasoft.demo.springboot.rabbitmq.bean.User;
 import com.landasoft.demo.springboot.rabbitmq.springbootrabbitmqsender.config.SenderFanoutConf;
 import com.landasoft.demo.springboot.rabbitmq.springbootrabbitmqsender.config.SenderTopicConf;
 import com.landasoft.demo.springboot.rabbitmq.springbootrabbitmqsender.sender.FanoutSender;
@@ -32,19 +32,19 @@ class SpringBootRabbitmqSenderApplicationTests {
     }
     @Test
     public void testTopicRabbit() {
-        topicSender.send(SenderTopicConf.EXCHANGE, "topic.message", "hello,rabbit~");;
+        //topicSender.send(SenderTopicConf.EXCHANGE, "topic.message", "hello,rabbit~");;
         User user = new User();
         user.setUserName("wulinyun");
         user.setUserPassword("88888888");
-        //topicSender.send(SenderTopicConf.EXCHANGE, "topic.messages", user);
+        topicSender.send(SenderTopicConf.EXCHANGE, "topic.messages", user);
     }
     @Test
     public void testFanoutRabbit() {
-        fanoutSender.send(SenderFanoutConf.FANOUTEXCHANGE, "", "hello,fanout rabbit~");;
+        //fanoutSender.send(SenderFanoutConf.FANOUTEXCHANGE, "", "hello,fanout rabbit~");;
         User user = new User();
         user.setUserName("wulinyun");
         user.setUserPassword("88888888");
-        //fanoutSender.send("fanoutExchange", "", user);
+        fanoutSender.send("fanoutExchange", "", user);
     }
 
 }
