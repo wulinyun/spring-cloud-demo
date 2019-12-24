@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * @Author wulinyun
  * @Version 1.0
- * @Description
+ * @Description direct路由模式消息接收监听器
  * @Date 2019/12/24 11:24
  */
 @Component
