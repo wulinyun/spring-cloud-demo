@@ -12,10 +12,7 @@ import java.io.Serializable;
  */
 @Data
 public class User implements Serializable {
-    /**
-     * serialVersionUID
-     */
-    private static final long serialVersionUID = 1L;
+
     /**
      * 用户名
      */
@@ -24,8 +21,4 @@ public class User implements Serializable {
      * 用户密码
      */
     private String userPassword;
-    @Override
-    public String toString() {
-        return "User MY[userName=" + userName + ", userPassword=" + userPassword + "]";
-    }
 }
