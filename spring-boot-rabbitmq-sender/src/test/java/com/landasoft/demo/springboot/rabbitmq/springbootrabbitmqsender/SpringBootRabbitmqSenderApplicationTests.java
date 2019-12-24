@@ -31,8 +31,14 @@ class SpringBootRabbitmqSenderApplicationTests {
         sender.send(user);
     }
     @Test
-    public void testTopicRabbit() {
-        //topicSender.send(SenderTopicConf.EXCHANGE, "topic.message", "hello,rabbit~");;
+    public void testTopicAllRabbit() {
+        User user = new User();
+        user.setUserName("wulinyun");
+        user.setUserPassword("88888888");
+        topicSender.send(SenderTopicConf.EXCHANGE, "topic.message", user);;
+    }
+    @Test
+    public void testTopicOneRabbit() {
         User user = new User();
         user.setUserName("wulinyun");
         user.setUserPassword("88888888");
