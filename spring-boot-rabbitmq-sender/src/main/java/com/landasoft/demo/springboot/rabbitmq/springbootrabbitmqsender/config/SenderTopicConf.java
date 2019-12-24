@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class SenderTopicConf {
+    public final static String EXCHANGE="exchange";
     @Bean(name="message")
     public Queue queueMessage() {
         return new Queue("topic.message",true);
@@ -30,7 +31,7 @@ public class SenderTopicConf {
     }
     @Bean
     public TopicExchange exchange() {
-        return new TopicExchange("exchange", true, false);
+        return new TopicExchange(EXCHANGE, true, false);
     }
     @Bean
     Binding bindingExchangeMessage(@Qualifier("message") Queue queueMessage,

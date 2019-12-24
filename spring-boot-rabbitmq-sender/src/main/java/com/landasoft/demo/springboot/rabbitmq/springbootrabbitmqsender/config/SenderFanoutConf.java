@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class SenderFanoutConf {
+    public final static String FANOUTEXCHANGE="fanoutExchange";
     @Bean(name="Amessage")
     public Queue AMessage() {
         return new Queue("fanout.A",true);
@@ -32,7 +33,7 @@ public class SenderFanoutConf {
     }
     @Bean
     public FanoutExchange fanoutExchange () {
-        return new FanoutExchange("fanoutExchange", true, false);
+        return new FanoutExchange(FANOUTEXCHANGE, true, false);
     }
    @Bean
    Binding bindingExchangeA(@Qualifier("Amessage") Queue AMessage,
