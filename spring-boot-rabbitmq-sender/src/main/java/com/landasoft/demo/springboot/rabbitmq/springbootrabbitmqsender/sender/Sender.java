@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 /**
  * @Author wulinyun
  * @Version 1.0
- * @Description
+ * @Description Direct路由模式相当于一对一模式,一个消息被发送者发送后,会被转发到一个绑定的消息队列中,然后被一个接收者接收!
+ * 实际上RabbitMQ还可以支持发送对象:当然由于涉及到序列化和反序列化,该对象要实现Serilizable接口
  * @Date 2019/12/24 10:17
  */
 @Component
