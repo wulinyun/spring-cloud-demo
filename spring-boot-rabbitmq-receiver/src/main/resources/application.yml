@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: spring-boot-demo-rabbitmq-sender
+    name: spring-boot-demo-rabbitmq-receiver
   rabbitmq:
     host: 192.168.223.133
     port: 5672
