@@ -40,6 +40,10 @@ public class SenderTopicConf {
     }
     @Bean
     Binding bindingExchangeMessages(@Qualifier("messages") Queue queueMessages, TopicExchange exchange) {
-        return BindingBuilder.bind(queueMessages).to(exchange).with("topic.#");//*表示一个词,#表示零个或多个词
+        //*表示一个词,#表示零个或多个词
+        //当topic.messages对象消息发送过去的时候，只有topic.messages队列能够匹配接收，topic.message的routingKey为topic.message没法匹配
+        //当topic.message对象消息发送过去的时候，topic.messages和topic.message的队列都可以收到消息因为他们的routingKey都能够匹配
+        //当
+        return BindingBuilder.bind(queueMessages).to(exchange).with("topic.#");
     }
 }
