@@ -1,6 +1,6 @@
 package com.landasoft.demo.springboot.rabbitmq.springbootrabbitmqreceiver.receive;
 
-import com.landasoft.demo.springboot.rabbitmq.springbootrabbitmqreceiver.bean.User;
+import com.landasoft.demo.springboot.rabbitmq.bean.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
