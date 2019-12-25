@@ -36,14 +36,6 @@ class SpringBootSolrApplicationTests {
         doc2.setField("user_address", "26");
         solr.add(doc2);
         solr.commit();
-        //删除文档
-        solr.deleteById("1001");
-        solr.commit();
-        //删除所有
-        solr.deleteByQuery("*:*");
-        solr.commit();
-        //关闭连接
-        solr.close();
 
     }
     @Test
