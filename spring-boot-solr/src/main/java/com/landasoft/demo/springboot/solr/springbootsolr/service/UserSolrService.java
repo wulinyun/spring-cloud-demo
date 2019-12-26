@@ -8,5 +8,5 @@ import com.landasoft.demo.springboot.solr.springbootsolr.domain.User;
  * @Description 用户solr接口定义
  * @Date 2019/12/26 14:10
  */
-public interface UserSolrServer extends SolrService<User> {
+public interface UserSolrService extends SolrService<User> {
 }
