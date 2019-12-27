@@ -35,7 +35,7 @@ public class UserSolrController {
         return user;
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @ApiOperation(value = "删除用户")
     public void delete(@RequestParam("query") String query){
         userSolrService.delete(query);
@@ -53,7 +53,7 @@ public class UserSolrController {
         return userSolrService.queryById(id);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     @ApiOperation(value = "更新用户")
     public User update(@RequestBody User user){
         return userSolrService.update(user);
@@ -67,6 +67,6 @@ public class UserSolrController {
     @GetMapping("/select/{q}/{page}/{size}")
     @ApiOperation(value = "通过查询条件查询用户")
     public Map<String,Object> select(@PathVariable String q, @PathVariable Integer page, @PathVariable Integer size) throws IOException, SolrServerException {
-       return userSolrService.select(q,page,size);
+        return userSolrService.select(q,page,size);
     }
 }
