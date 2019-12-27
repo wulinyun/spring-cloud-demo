@@ -163,9 +163,9 @@ public class UserSolrServiceImpl implements UserSolrService {
         params.setStart(page);
         params.setRows(size);
         //默认域
-        params.set("df", "name");
+        params.set("df", "user_username");
         //只查询指定域
-        params.set("fl", "id,name");
+        params.set("fl", "id,user_username,user_address");
         //开启高亮
         params.setHighlight(true);
         //设置前缀
