@@ -48,7 +48,7 @@ public class UserSolrServiceImpl implements UserSolrService {
             org.springframework.data.solr.core.mapping.SolrDocument solrDocument = User.class.getAnnotation(org.springframework.data.solr.core.mapping.SolrDocument.class);
             String collection = solrDocument.collection();
             solrClient.deleteByQuery(collection,query);
-            solrClient.commit();
+            solrClient.commit(collection);
         } catch (SolrServerException e) {
             e.printStackTrace();
         } catch (IOException e) {
