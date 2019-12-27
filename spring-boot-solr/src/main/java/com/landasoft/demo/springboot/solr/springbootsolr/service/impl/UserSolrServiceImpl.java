@@ -7,6 +7,7 @@ import com.landasoft.demo.springboot.solr.springbootsolr.util.SolrDocumentUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.beans.DocumentObjectBinder;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrDocument;
@@ -200,7 +201,10 @@ public class UserSolrServiceImpl implements UserSolrService {
             map.put("data", hightLight);
         }else{
             map.put("total", total);
-            map.put("data", SolrDocumentUtils.toBeanList(results,User.class));
+            //使用通过common-beanutils封装的转发工具类
+            //map.put("data", SolrDocumentUtils.toBeanList(results,User.class));
+            //使用DocumentObjectBinder对SolrDocumentUtils或者SolrDocument进行bean和beans的转化
+            map.put("data", new DocumentObjectBinder().getBeans(User.class, results));
         }
 
         return map;
