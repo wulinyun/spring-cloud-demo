@@ -1,6 +1,10 @@
 package com.landasoft.demo.springboot.solr.springbootsolr.service;
 
+import org.apache.solr.client.solrj.SolrServerException;
+
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author wulinyun
@@ -15,4 +19,5 @@ public interface SolrService<T> {
     List<T> query(String query);
     List<T> queryAll();
     T queryById(String id);
+    Map<String,Object> select(String q, Integer page, Integer size) throws IOException, SolrServerException;
 }

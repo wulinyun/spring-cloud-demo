@@ -16,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -149,5 +150,41 @@ public class UserSolrServiceImpl implements UserSolrService {
             e.printStackTrace();
         }
         return user;
+    }
+
+    @Override
+    public Map<String, Object> select(String q, Integer page, Integer size) throws IOException, SolrServerException {
+        SolrQuery params = new SolrQuery();
+        //查询条件
+        params.set("q", q);
+        //排序
+        params.addSort("id", SolrQuery.ORDER.desc);
+        //分页
+        params.setStart(page);
+        params.setRows(size);
+        //默认域
+        params.set("df", "name");
+        //只查询指定域
+        params.set("fl", "id,name");
+        //开启高亮
+        params.setHighlight(true);
+        //设置前缀
+        params.setHighlightSimplePre("<span style='color:red'>");
+        //设置后缀
+        params.setHighlightSimplePost("</span>");
+        //solr数据库是admin
+        org.springframework.data.solr.core.mapping.SolrDocument document = User.class.getAnnotation(org.springframework.data.solr.core.mapping.SolrDocument.class);
+        String collection = document.collection();
+        QueryResponse queryResponse = solrClient.query(collection,params);
+        SolrDocumentList results = queryResponse.getResults();
+        //数量，分页用
+        long total = results.getNumFound();
+        //获取高亮显示的结果，高亮显示的结果和查询结果是分开放的
+        Map<String,Map<String,List<String>>> hightLight = queryResponse.getHighlighting();
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("total", total);
+        map.put("data", hightLight);
+        return map;
+
     }
 }
