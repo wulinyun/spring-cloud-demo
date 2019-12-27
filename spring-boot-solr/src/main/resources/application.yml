@@ -2,3 +2,7 @@ spring:
   data:
     solr:
       host: http://192.168.223.133:8983/solr
+
+#swagger的开启关闭开关属性
+swagger:
+  enable: true
