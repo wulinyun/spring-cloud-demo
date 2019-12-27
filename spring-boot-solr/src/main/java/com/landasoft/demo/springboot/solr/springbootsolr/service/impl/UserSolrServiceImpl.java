@@ -12,6 +12,7 @@ import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 import org.noggit.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ import java.util.Map;
  * @Description 用户solr接口服务实现
  * @Date 2019/12/26 14:14
  */
+@Service
 public class UserSolrServiceImpl implements UserSolrService {
     @Autowired
     private SolrClient solrClient;
