@@ -1,12 +1,12 @@
 server:
-  port: 8081
+  port: 8080
 spring:
   application:
     name: spring-boot-demo-rabbitmq-receiver
   rabbitmq:
-    host: 192.168.223.133
+    host: 10.163.4.121
     port: 5672
     username: guest
     password: guest
-    virtual-host: /landa_demo #没有特别设置另外的默认是/
+    virtual-host:  #没有特别设置另外的默认是/
 
