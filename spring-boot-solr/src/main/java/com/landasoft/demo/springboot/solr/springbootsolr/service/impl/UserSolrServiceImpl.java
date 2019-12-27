@@ -9,7 +9,6 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
-import org.apache.solr.common.SolrInputDocument;
 import org.noggit.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,8 +42,10 @@ public class UserSolrServiceImpl implements UserSolrService {
     }
 
     @Override
-    public void delete(String collection,String query) {
+    public void delete(String query) {
         try {
+            org.springframework.data.solr.core.mapping.SolrDocument solrDocument = User.class.getAnnotation(org.springframework.data.solr.core.mapping.SolrDocument.class);
+            String collection = solrDocument.collection();
             solrClient.deleteByQuery(collection,query);
             solrClient.commit();
         } catch (SolrServerException e) {
@@ -68,7 +69,7 @@ public class UserSolrServiceImpl implements UserSolrService {
     }
 
     @Override
-    public List<User> query(String collection,String query) {
+    public List<User> query(String query) {
         List<User> bookList = new ArrayList<User>();
         SolrQuery solrQuery = new SolrQuery();
         //设置默认搜索的域
@@ -82,6 +83,8 @@ public class UserSolrServiceImpl implements UserSolrService {
         solrQuery.setHighlightSimplePre("<font color='red'>");
         //后缀
         solrQuery.setHighlightSimplePost("</font>");
+        org.springframework.data.solr.core.mapping.SolrDocument document = User.class.getAnnotation(org.springframework.data.solr.core.mapping.SolrDocument.class);
+        String collection = document.collection();
         try {
             QueryResponse queryResponse = solrClient.query(collection,solrQuery);
             if (queryResponse == null){
@@ -112,7 +115,9 @@ public class UserSolrServiceImpl implements UserSolrService {
     }
 
     @Override
-    public List<User> queryAll(String collection) {
+    public List<User> queryAll() {
+        org.springframework.data.solr.core.mapping.SolrDocument solrDocument = User.class.getAnnotation(org.springframework.data.solr.core.mapping.SolrDocument.class);
+        String collection = solrDocument.collection();
         List<User> userList = new ArrayList<User>();
         SolrQuery solrQuery = new SolrQuery();
         solrQuery.setQuery("*:*");
@@ -130,8 +135,10 @@ public class UserSolrServiceImpl implements UserSolrService {
     }
 
     @Override
-    public User queryById(String collection,String id) {
+    public User queryById(String id) {
         User user = null;
+        org.springframework.data.solr.core.mapping.SolrDocument document = User.class.getAnnotation(org.springframework.data.solr.core.mapping.SolrDocument.class);
+        String collection = document.collection();
         try {
             SolrDocument solrDocument = solrClient.getById(collection,id);
             String str = JSONUtil.toJSON(solrDocument);

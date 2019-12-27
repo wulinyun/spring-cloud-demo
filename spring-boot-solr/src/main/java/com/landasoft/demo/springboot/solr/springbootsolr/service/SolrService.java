@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface SolrService<T> {
     void add(T t);
-    void delete(String collection,String query);
+    void delete(String query);
     T update(T t);
-    List<T> query(String collection,String query);
-    List<T> queryAll(String collection);
-    T queryById(String collection,String id);
+    List<T> query(String query);
+    List<T> queryAll();
+    T queryById(String id);
 }

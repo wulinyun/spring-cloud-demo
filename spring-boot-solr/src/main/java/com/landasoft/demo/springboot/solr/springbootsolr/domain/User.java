@@ -12,7 +12,7 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
  * @Date 2019/12/25 20:02
  */
 @Data
-@SolrDocument(solrCoreName = "admin")
+@SolrDocument(collection = "admin")
 public class User {
     @Id
     @Field
