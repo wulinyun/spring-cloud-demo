@@ -1,6 +1,7 @@
 package com.landasoft.demo.springboot.solr.springbootsolr.service;
 
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.UpdateResponse;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Map;
  */
 public interface SolrService<T> {
     void add(T t);
-    void delete(String query);
+    UpdateResponse delete(String query);
     T update(T t);
     List<T> query(String query);
     List<T> queryAll();

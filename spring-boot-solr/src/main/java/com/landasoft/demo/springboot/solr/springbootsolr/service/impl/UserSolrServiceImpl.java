@@ -7,6 +7,7 @@ import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.noggit.JSONUtil;
@@ -28,26 +29,13 @@ import java.util.Map;
  */
 @Service
 public class UserSolrServiceImpl implements UserSolrService {
+    private static final String collection = User.class.getAnnotation(org.springframework.data.solr.core.mapping.SolrDocument.class).collection();
     @Autowired
     private SolrClient solrClient;
     @Override
     public void add(User user) {
         try {
-            solrClient.addBean(user);
-            solrClient.commit();
-        } catch (SolrServerException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delete(String query) {
-        try {
-            org.springframework.data.solr.core.mapping.SolrDocument solrDocument = User.class.getAnnotation(org.springframework.data.solr.core.mapping.SolrDocument.class);
-            String collection = solrDocument.collection();
-            solrClient.deleteByQuery(collection,query);
+            solrClient.addBean(collection,user);
             solrClient.commit(collection);
         } catch (SolrServerException e) {
             e.printStackTrace();
@@ -57,10 +45,24 @@ public class UserSolrServiceImpl implements UserSolrService {
     }
 
     @Override
+    public UpdateResponse delete(String query) {
+        try {
+            solrClient.deleteByQuery(collection,query);
+            UpdateResponse updateResponse = solrClient.commit(collection);
+            return updateResponse;
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public User update(User user) {
         try {
-            solrClient.addBean(user);
-            solrClient.commit();
+            solrClient.addBean(collection,user);
+            solrClient.commit(collection);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SolrServerException e) {
@@ -84,8 +86,6 @@ public class UserSolrServiceImpl implements UserSolrService {
         solrQuery.setHighlightSimplePre("<font color='red'>");
         //后缀
         solrQuery.setHighlightSimplePost("</font>");
-        org.springframework.data.solr.core.mapping.SolrDocument document = User.class.getAnnotation(org.springframework.data.solr.core.mapping.SolrDocument.class);
-        String collection = document.collection();
         try {
             QueryResponse queryResponse = solrClient.query(collection,solrQuery);
             if (queryResponse == null){
@@ -117,8 +117,6 @@ public class UserSolrServiceImpl implements UserSolrService {
 
     @Override
     public List<User> queryAll() {
-        org.springframework.data.solr.core.mapping.SolrDocument solrDocument = User.class.getAnnotation(org.springframework.data.solr.core.mapping.SolrDocument.class);
-        String collection = solrDocument.collection();
         List<User> userList = new ArrayList<User>();
         SolrQuery solrQuery = new SolrQuery();
         solrQuery.setQuery("*:*");
@@ -138,8 +136,6 @@ public class UserSolrServiceImpl implements UserSolrService {
     @Override
     public User queryById(String id) {
         User user = null;
-        org.springframework.data.solr.core.mapping.SolrDocument document = User.class.getAnnotation(org.springframework.data.solr.core.mapping.SolrDocument.class);
-        String collection = document.collection();
         try {
             SolrDocument solrDocument = solrClient.getById(collection,id);
             String str = JSONUtil.toJSON(solrDocument);
@@ -173,8 +169,6 @@ public class UserSolrServiceImpl implements UserSolrService {
         //设置后缀
         params.setHighlightSimplePost("</span>");
         //solr数据库是admin
-        org.springframework.data.solr.core.mapping.SolrDocument document = User.class.getAnnotation(org.springframework.data.solr.core.mapping.SolrDocument.class);
-        String collection = document.collection();
         QueryResponse queryResponse = solrClient.query(collection,params);
         SolrDocumentList results = queryResponse.getResults();
         //数量，分页用
