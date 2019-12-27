@@ -33,23 +33,14 @@ public class UserSolrServiceImpl implements UserSolrService {
     @Autowired
     private SolrClient solrClient;
     @Override
-    public void add(User user) {
+    public User add(User user) {
         try {
             solrClient.addBean(collection,user);
-            solrClient.commit(collection);
-        } catch (SolrServerException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public UpdateResponse delete(String query) {
-        try {
-            solrClient.deleteByQuery(collection,query);
             UpdateResponse updateResponse = solrClient.commit(collection);
-            return updateResponse;
+            //添加成功
+            if(updateResponse.getStatus()==0){
+                return user;
+            }
         } catch (SolrServerException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -59,10 +50,36 @@ public class UserSolrServiceImpl implements UserSolrService {
     }
 
     @Override
+    public Map<String,Object> delete(String query) {
+        Map<String,Object> resultMap = new HashMap<>();
+        try {
+            solrClient.deleteByQuery(collection,query);
+            UpdateResponse updateResponse = solrClient.commit(collection);
+            resultMap.put("status",updateResponse.getStatus());
+            resultMap.put("QTime",updateResponse.getQTime());
+            resultMap.put("msg","删除成功");
+            return resultMap;
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+            resultMap.put("status",-1);
+            resultMap.put("msg",e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+            resultMap.put("status",-1);
+            resultMap.put("msg",e.getMessage());
+        }
+        return resultMap;
+    }
+
+    @Override
     public User update(User user) {
         try {
             solrClient.addBean(collection,user);
-            solrClient.commit(collection);
+            UpdateResponse updateResponse = solrClient.commit(collection);
+            //添加成功
+            if(updateResponse.getStatus()==0){
+                return user;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SolrServerException e) {

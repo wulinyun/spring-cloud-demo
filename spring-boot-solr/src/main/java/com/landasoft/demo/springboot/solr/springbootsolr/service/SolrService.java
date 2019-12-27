@@ -14,8 +14,8 @@ import java.util.Map;
  * @Date 2019/12/26 13:57
  */
 public interface SolrService<T> {
-    void add(T t);
-    UpdateResponse delete(String query);
+    T add(T t);
+    Map<String,Object> delete(String query);
     T update(T t);
     List<T> query(String query);
     List<T> queryAll();
