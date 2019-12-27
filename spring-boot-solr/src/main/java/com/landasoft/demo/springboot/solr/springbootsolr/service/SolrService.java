@@ -20,5 +20,17 @@ public interface SolrService<T> {
     List<T> query(String query);
     List<T> queryAll();
     T queryById(String id);
-    Map<String,Object> select(String q, Integer page, Integer size) throws IOException, SolrServerException;
+
+    /**
+     * 分页查询用户数据（当开启关键字查询功能时为关键字查询）
+     * @param enable 是否开启，true开启 false关闭
+     * @param q 查询条件
+     * @param page 页面
+     * @param size  页大小
+     * @param keyword 默认域以及指定域关键字
+     * @return
+     * @throws IOException
+     * @throws SolrServerException
+     */
+    Map<String,Object> select(boolean enable,String q, Integer page, Integer size,String... keyword) throws IOException, SolrServerException;
 }

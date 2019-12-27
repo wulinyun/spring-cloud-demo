@@ -65,8 +65,10 @@ public class UserSolrController {
         return userSolrService.query(query);
     }
     @GetMapping("/select/{q}/{page}/{size}")
-    @ApiOperation(value = "通过查询条件查用户信息关键字高亮分页")
-    public Map<String,Object> select(@PathVariable String q, @PathVariable Integer page, @PathVariable Integer size) throws IOException, SolrServerException {
-        return userSolrService.select(q,page,size);
+    @ApiOperation(value = "通过查询条件查用户信息分页")
+    public Map<String,Object> select(@PathVariable String q, @PathVariable Integer page, @PathVariable Integer size,
+                                     @RequestParam(name = "enable",defaultValue = "false")boolean enable,
+                                     @RequestParam(name = "keyword",required = false)String ... keyword) throws IOException, SolrServerException {
+        return userSolrService.select(enable,q,page,size,keyword);
     }
 }
