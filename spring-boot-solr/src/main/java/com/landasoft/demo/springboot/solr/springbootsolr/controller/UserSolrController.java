@@ -5,6 +5,7 @@ import com.landasoft.demo.springboot.solr.springbootsolr.service.UserSolrService
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,14 +32,13 @@ public class UserSolrController {
     @PostMapping("/add")
     @ApiOperation(value = "增加用户")
     public User add(@RequestBody User user){
-        userSolrService.add(user);
-        return user;
+         return userSolrService.add(user);
     }
 
     @DeleteMapping("/delete")
     @ApiOperation(value = "删除用户")
-    public void delete(@RequestParam("query") String query){
-        userSolrService.delete(query);
+    public Map<String,Object> delete(@RequestParam("query") String query){
+        return userSolrService.delete(query);
     }
 
     @GetMapping("/queryAll")
