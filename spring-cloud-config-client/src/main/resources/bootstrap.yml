@@ -1,19 +1,9 @@
 spring:
   cloud:
-    config:
-      name: easy-config
-      profile: dev
-      uri: http://localhost:8001/ #配置中心的具体地址(sever端地址)
-      label: master #对应git的分支。如果配置中心使用的是本地存储，则该参数无用
-      discovery:
-        enabled: true
-        service-id: spring-cloud-config-server
     bus:
       enabled: true
       #webhooks为什么只会刷新server端不刷新client端？因为spring.cloud.bus.id需要我们跟webhooks配置规则一致
       id: ${spring.application.name}:${spring.cloud.config.profile}:${random.value}
-
-
 
 #暴露actuator端点
 management:
