@@ -5,3 +5,10 @@ eureka:
       defaultZone: http://${eureka.host:127.0.0.1}:8761/eureka/ #spring-cloud-discovery
   instance:
     prefer-ip-address: true
+
+feign:
+  client:
+    config:
+      landa-mas-zipkin-stream-client-backend:
+        connectTimeout: 3600000 # 链接超时时间
+        readTimeout: 3600000  # 链接超时时间
