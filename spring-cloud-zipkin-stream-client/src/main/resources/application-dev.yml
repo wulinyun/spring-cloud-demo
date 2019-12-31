@@ -12,3 +12,12 @@ feign:
       landa-mas-zipkin-stream-client-backend: #feignname
         connectTimeout: 3600000 # 链接超时时间
         readTimeout: 3600000  # 链接超时时间
+  #GZIP 压缩配置
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json #配置压缩的类型
+      min-request-size: 2048 #最小压缩值的标准
+    response:
+      enabled: true
+
