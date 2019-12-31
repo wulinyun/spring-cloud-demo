@@ -7,7 +7,7 @@ spring:
       label: master #对应git的分支。如果配置中心使用的是本地存储，则该参数无用
       discovery:
         enabled: true
-        service-id: spring-cloud-config-server
+        service-id: spring-cloud-configs-server
     bus:
       enabled: true
       #webhooks为什么只会刷新server端不刷新client端？因为spring.cloud.bus.id需要我们跟webhooks配置规则一致
