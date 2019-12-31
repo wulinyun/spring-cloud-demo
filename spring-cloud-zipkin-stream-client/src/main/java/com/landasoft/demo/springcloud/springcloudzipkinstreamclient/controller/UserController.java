@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -42,8 +43,10 @@ public class UserController {
     @GetMapping("/call/{id}")
     public String callHome(@PathVariable String id){
         logger.info("calling from trace demo backend");
+        long time_start = System.currentTimeMillis();
         String result= this.originRestTemplate.getForObject("http://localhost:11022/call/" + id, String.class);
-        return result+" world";
+        long time_end = System.currentTimeMillis();
+        return result+" world" +(time_end-time_start)/1000+"s";
     }
 
     /**
@@ -53,11 +56,13 @@ public class UserController {
      */
     @ApiOperation(value = "通过feign调用接口地址")
     @GetMapping("/call_f/{id}")
-    public String callHomeF(@PathVariable String id){
+    public String callHomeF(@PathVariable String id, @RequestParam(name = "time",required = false)Long time){
         logger.info("calling from trace demo backend by feign");
         //String result= this.restTemplate.getForObject("http://localhost:11022/call/" + id, String.class);
-        String result = zipkinStreamClientBackendFeign.call(id);
-        return result+" world by feign ";
+        long time_start = System.currentTimeMillis();
+        String result = zipkinStreamClientBackendFeign.call(id,time);
+        long time_end = System.currentTimeMillis();
+        return result+" world by feign " +(time_end-time_start)/1000.0+"s";
     }
 
     /**
