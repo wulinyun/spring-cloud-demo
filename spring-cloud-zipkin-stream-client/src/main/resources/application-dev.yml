@@ -9,6 +9,6 @@ eureka:
 feign:
   client:
     config:
-      landa-mas-zipkin-stream-client-backend:
+      landa-mas-zipkin-stream-client-backend: #feignname
         connectTimeout: 3600000 # 链接超时时间
         readTimeout: 3600000  # 链接超时时间
