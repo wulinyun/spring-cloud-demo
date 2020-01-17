@@ -28,7 +28,6 @@ public class AccountController {
     @RequestMapping("decrease")
     public String decrease(@RequestParam("userId") Long userId, @RequestParam("money") BigDecimal money){
         accountServiceImpl.decrease(userId,money);
-        accountServiceImpl.decrease(userId,money);
         return "Account decrease success";
     }
 }
