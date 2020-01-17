@@ -8,8 +8,10 @@ eureka:
       defaultZone: http://${eureka.host:127.0.0.1}:8761/eureka/
 logging:
   level:
-    io:
-      seata: info
+    com:
+      landasoft:
+        demo:
+          springcloud: info
 mybatis:
   mapperLocations: classpath:mapper/*.xml
   typeAliasesPackage: com.landasoft.demo.springcloud.springcloudseataaccountserver.entity
