@@ -15,6 +15,12 @@
     <name>spring-cloud-eureka-feign-mybatis-seata</name>
     <description>Demo project for Spring Boot</description>
     <packaging>pom</packaging>
+
+    <organization>
+        <name>landasoft</name>
+        <url>www.landasoft.com</url>
+    </organization>
+
     <!--<modules>
 		<module>order-server</module>
 		<module>account-server</module>
