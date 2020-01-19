@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-cloud-eureka-feign-mybatis-seata</name>
     <description>Demo project for Spring Boot</description>
-
+    <packaging>pom</packaging>
     <!--<modules>
 		<module>order-server</module>
 		<module>account-server</module>
