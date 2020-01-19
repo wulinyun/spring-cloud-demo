@@ -91,5 +91,17 @@
             </plugin>
         </plugins>
     </build>
-
+    <!-- 本地仓库发布包到私服 -->
+    <distributionManagement>
+        <repository>
+            <id>landa-mas-releases</id>
+            <name>landa-mas releases Repository</name>
+            <url>http://nexus.landaudev.com:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>landa-mas-snapshots</id>
+            <name>landa-mas snapshots Repository</name>
+            <url>http://nexus.landaudev.com:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
