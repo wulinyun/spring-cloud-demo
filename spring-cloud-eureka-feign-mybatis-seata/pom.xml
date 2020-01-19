@@ -6,9 +6,9 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.8.RELEASE</version>
-        <relativePath/>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>io.seata.sample</groupId>
+    <groupId>io.seata.parent</groupId>
     <artifactId>spring-cloud-eureka-feign-mybatis-seata</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-cloud-eureka-feign-mybatis-seata</name>
