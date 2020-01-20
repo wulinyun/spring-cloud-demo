@@ -1,1 +1,13 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: spring-cloud-alibaba-sentinel-rate-limiting
+  # sentinel dashboard
+  cloud:
+    sentinel:
+      transport:
+        dashboard: ${sentinel.host:localhost}:${sentinel.port:8080}
+
+
 
