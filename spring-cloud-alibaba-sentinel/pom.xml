@@ -40,6 +40,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--引入Spring Cloud Alibaba的Sentinel模块-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
