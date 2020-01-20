@@ -9,6 +9,11 @@ eureka:
 feign:
   hystrix:
     enabled: false
+  client:
+    config:
+      account-server: #feignname
+        connectTimeout: 3600000 # 链接超时时间
+        readTimeout: 3600000  # 链接超时时间
 logging:
   level:
     com:
