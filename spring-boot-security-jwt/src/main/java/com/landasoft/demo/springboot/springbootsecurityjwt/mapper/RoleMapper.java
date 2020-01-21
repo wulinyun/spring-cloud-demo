@@ -15,6 +15,11 @@ import java.util.List;
  */
 @Mapper
 public interface RoleMapper {
+    /**
+     * 得到用户的角色
+     * @param userId
+     * @return
+     */
     @Select( "SELECT A.id,A.name FROM role A LEFT JOIN user_role B ON A.id=B.role_id WHERE B.user_id=${userId}" )
     List<Role> getRolesByUserId(@Param("userId") Long userId);
 }
