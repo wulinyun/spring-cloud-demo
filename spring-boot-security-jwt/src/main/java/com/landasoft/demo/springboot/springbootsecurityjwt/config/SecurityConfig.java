@@ -75,4 +75,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+    public static void main(String[] args) {
+        String charSequence = "123456";
+        System.out.println(DigestUtils.md5DigestAsHex(charSequence.toString().getBytes()));
+    }
 }
