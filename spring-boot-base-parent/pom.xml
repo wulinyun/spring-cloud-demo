@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.landasoft.mas.parent</groupId>
-    <artifactId>springboot-base-parent</artifactId>
+    <artifactId>spring-boot-base-parent</artifactId>
     <version>0.0.1-RELEASE</version>
     <packaging>pom</packaging>
-    <name>springboot-base-parent</name>
+    <name>spring-boot-base-parent</name>
     <description>Base configuration for Spring Boot project</description>
 
     <organization>
