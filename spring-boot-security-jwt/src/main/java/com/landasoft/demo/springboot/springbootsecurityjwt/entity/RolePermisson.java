@@ -3,7 +3,7 @@ package com.landasoft.demo.springboot.springbootsecurityjwt.entity;
 /**
  * @Author wulinyun
  * @Version 1.0
- * @Description
+ * @Description 角色权限
  * @Date 2020/1/21 15:32
  */
 public class RolePermisson {
