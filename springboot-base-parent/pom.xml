@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.3.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.landasoft.mas.parent</groupId>
+    <artifactId>springboot-base-parent</artifactId>
+    <version>0.0.1-RELEASE</version>
+    <packaging>pom</packaging>
+    <name>springboot-base-parent</name>
+    <description>Base configuration for Spring Boot project</description>
+
+    <organization>
+        <name>landasoft</name>
+        <url>www.landasoft.com</url>
+    </organization>
+    <!-- 公共依赖版本控制 -->
+    <properties>
+        <!--<java.version>1.8</java.version>-->
+    </properties>
+    <!-- 多属性文件配置 -->
+    <profiles>
+        <!-- 本地开发环境 -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!-- 测试环境 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <profiles.active>test</profiles.active>
+            </properties>
+        </profile>
+        <!-- 预生产环境 -->
+        <profile>
+            <id>pre</id>
+            <properties>
+                <profiles.active>prod</profiles.active>
+            </properties>
+        </profile>
+        <!-- 生产环境 -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profiles.active>prod</profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+    <!-- maven构建插件 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- 本地仓库发布包到私服 -->
+    <distributionManagement>
+        <repository>
+            <id>landa-mas-releases</id>
+            <name>landa-mas releases Repository</name>
+            <url>http://nexus.landaudev.com:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>landa-mas-snapshots</id>
+            <name>landa-mas snapshots Repository</name>
+            <url>http://nexus.landaudev.com:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
