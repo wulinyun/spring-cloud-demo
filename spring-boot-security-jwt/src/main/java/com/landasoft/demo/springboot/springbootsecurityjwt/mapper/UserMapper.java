@@ -13,6 +13,11 @@ import org.apache.ibatis.annotations.Select;
  */
 @Mapper
 public interface UserMapper {
+    /**
+     * 通过名字查找用户
+     * @param username
+     * @return
+     */
     @Select( "select id , username , password from user where username = #{username}" )
     User loadUserByUsername(@Param("username") String username);
 }
