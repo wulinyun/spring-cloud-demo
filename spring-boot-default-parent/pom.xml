@@ -10,6 +10,7 @@
     <groupId>com.landasoft.mas.parent</groupId>
     <artifactId>spring-boot-default-parent</artifactId>
     <version>0.0.1-RELEASE</version>
+    <packaging>pom</packaging>
     <name>spring-boot-default-parent</name>
     <description>Default configuration for Spring Boot project</description>
 
