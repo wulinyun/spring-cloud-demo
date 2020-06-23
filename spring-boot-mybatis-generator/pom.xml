@@ -8,7 +8,7 @@
         <version>0.0.1-RELEASE</version>
     </parent>
     <groupId>com.landasoft.mas</groupId>
-    <artifactId>springboot-mybatis-generator</artifactId>
+    <artifactId>spring-boot-mybatis-generator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>springboot-mybatis-generator</name>
     <description>Demo project for Spring Boot</description>
