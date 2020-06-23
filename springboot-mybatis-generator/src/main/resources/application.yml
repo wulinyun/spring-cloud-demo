@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://172.16.6.186:3307/sonar?useUnicode=true&characterEncoding=utf8
+    username: sonar
+    password: sonar
+    driver-class-name: com.mysql.jdbc.Driver
+#mybatis配置
+mybatis:
+  #映射文件路径
+  mapper-locations: classpath:mapper/*.xml
+  #模型所在的包名
+  type-aliases-package: com.landasoft.mas.springboot.mybatis.generator.entity
