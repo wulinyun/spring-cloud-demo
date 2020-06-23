@@ -10,7 +10,7 @@
     <groupId>com.landasoft.mas</groupId>
     <artifactId>spring-boot-mybatis-generator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springboot-mybatis-generator</name>
+    <name>spring-boot-mybatis-generator</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
