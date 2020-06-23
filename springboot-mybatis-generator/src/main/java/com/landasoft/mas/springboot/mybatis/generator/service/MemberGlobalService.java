@@ -1,6 +1,8 @@
 package com.landasoft.mas.springboot.mybatis.generator.service;
 
 import com.landasoft.mas.springboot.mybatis.generator.entity.MemberGlobal;
+import com.landasoft.mas.springboot.mybatis.generator.entity.MemberGlobalExample;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,13 +14,25 @@ import java.util.List;
  * @Date 2020/6/24 0:19
  */
 public interface MemberGlobalService {
+    long countByExample(MemberGlobalExample example);
+
+    int deleteByExample(MemberGlobalExample example);
+
     int deleteByPrimaryKey(Long memberGlobalId);
 
     int insert(MemberGlobal record);
 
+    int insertSelective(MemberGlobal record);
+
+    List<MemberGlobal> selectByExample(MemberGlobalExample example);
+
     MemberGlobal selectByPrimaryKey(Long memberGlobalId);
 
-    List<MemberGlobal> selectAll();
+    int updateByExampleSelective(@Param("record") MemberGlobal record, @Param("example") MemberGlobalExample example);
+
+    int updateByExample(@Param("record") MemberGlobal record, @Param("example") MemberGlobalExample example);
+
+    int updateByPrimaryKeySelective(MemberGlobal record);
 
     int updateByPrimaryKey(MemberGlobal record);
 }
