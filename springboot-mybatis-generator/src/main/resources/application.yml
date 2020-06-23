@@ -10,3 +10,10 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   #模型所在的包名
   type-aliases-package: com.landasoft.mas.springboot.mybatis.generator.entity
+
+# pagehelper配置
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
