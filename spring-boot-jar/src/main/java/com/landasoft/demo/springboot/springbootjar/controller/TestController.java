@@ -6,10 +6,7 @@ import com.netflix.discovery.EurekaClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -60,4 +57,11 @@ public class TestController {
 			System.out.println(chinaStr);
 			return  chinaStr;
 		}
+		@RequestMapping("/getTiming")
+		public String getTiming(@RequestParam(name = "time",defaultValue = "1")Integer time) throws InterruptedException {
+			System.out.println("开始等待");
+	    	Thread.sleep(time*1000);
+			System.out.println("结束等待");
+	    	return msg+"  等待时间(秒)"+time;
+	}
 }

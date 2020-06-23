@@ -23,7 +23,7 @@ job_beta_build:
     - release
   #when: manual                                                          # 调试阶段可以先手动，后续可以注释掉以自动运行
   script:                                                                ### runner上运行的脚本
-  - bash .ci/config.sh                                                   # 不同环境配置替换，后文详解 config.sh
+  - bash .ci/configs.sh                                                   # 不同环境配置替换，后文详解 configs.sh
   - mvn clean install -Dmaven.test.skip=true -U                          # mvn 编译，可以去runner 虚机上手动执行编译测试
   - mv example-web/target/*.jar dockerfiles/                             # 把mvn生成的xxx.jar移动到dockerfiles目录下
   - export IMAGE=`echo $IMAGE_NAME | sed 's/\//-/g'`                     # 转换镜像名，例：mygroup/java/example:172 >> mygroup-java-example:172
@@ -57,7 +57,7 @@ job_push_beta:                                                           ### 推
   #
   - mkdir -p /opt/kube/$PROJECT_NS/$APP_NAME                             # 在runner：beta-shell虚机本地创建应用配置目录，调试检查用
   - cp -f .ci/app.yaml /opt/kube/$PROJECT_NS/$APP_NAME
-  - kubectl --kubeconfig=/etc/.beta/config apply -f .ci/app.yaml         # 部署应用（runner虚机上预先配置了kubectl权限执行测试k8s平台）
+  - kubectl --kubeconfig=/etc/.beta/configs apply -f .ci/app.yaml         # 部署应用（runner虚机上预先配置了kubectl权限执行测试k8s平台）
 
 job_delete_beta:                                                         ### 多测试环境并行部署在beta k8s平台，feature分支测试完毕后删除代码分支，
   stage: beta-feature-delete                                             # 同时需要删除该分支在k8s平台上的部署，可以由开发人员自行执行该job删除
@@ -68,7 +68,7 @@ job_delete_beta:                                                         ### 多
   when: manual
   script:
   - export PROJECT_NS=`echo $PROJECT_NS | sed 's/\//-/g'`
-  - kubectl --kubeconfig=/etc/.beta/config delete deploy,svc,ing $APP_NAME -n $PROJECT_NS
+  - kubectl --kubeconfig=/etc/.beta/configs delete deploy,svc,ing $APP_NAME -n $PROJECT_NS
 
 job_prod_build:                                                          ### prod环境编译打包，这里prod环境我们使用阿里云上的K8S
   stage: prod-build                                                      # 阿里云k8s平台上运行的uat环境和正式环境都使用本次打包镜像
@@ -79,7 +79,7 @@ job_prod_build:                                                          ### pro
     - release
   #when: manual
   script:
-  - bash .ci/config.sh                                                   # config.sh 会执行替换生产环境的变量
+  - bash .ci/configs.sh                                                   # configs.sh 会执行替换生产环境的变量
   - mvn clean install -Dmaven.test.skip=true -U                          # mvn 编译，可以去runner 虚机上手动执行编译测试
   - mv example-web/target/*.jar dockerfiles/                             # 把mvn生成的xxx.jar移动到dockerfiles目录下
   - export IMAGE=`echo $IMAGE_NAME | sed 's/\//-/g'`
@@ -111,7 +111,7 @@ job_push_prod_uat:                                                       ### 部
   #
   - mkdir -p /opt/kube/$PROJECT_NS/$APP_NAME
   - cp -f .ci/app.yaml /opt/kube/$PROJECT_NS/$APP_NAME
-  - kubectl --kubeconfig=/etc/.aliyun/config apply -f .ci/app.yaml
+  - kubectl --kubeconfig=/etc/.aliyun/configs apply -f .ci/app.yaml
 
 job_push_prod_release:                                                   ### 部署至阿里云正式环境
   stage: prod-deploy
@@ -136,7 +136,7 @@ job_push_prod_release:                                                   ### 部
   #
   - mkdir -p /opt/kube/$PROJECT_NS/$APP_NAME
   - cp -f .ci/app.yaml /opt/kube/$PROJECT_NS/$APP_NAME
-  - kubectl --kubeconfig=/etc/.aliyun/config apply -f .ci/app.yaml
+  - kubectl --kubeconfig=/etc/.aliyun/configs apply -f .ci/app.yaml
 
 1/3 rollback:                                                            ### 定义生产环境回退job
   stage: prod-rollback
@@ -149,7 +149,7 @@ job_push_prod_release:                                                   ### 部
   variables:
     PROJECT_NS: '$CI_PROJECT_NAMESPACE-prod-deploy'                      # 定义job内变量覆盖全局变量设置
   script:
-  - kubectl --kubeconfig=/etc/.aliyun/config -n $PROJECT_NS rollout undo deployment $CI_PROJECT_NAME --to-revision=1
+  - kubectl --kubeconfig=/etc/.aliyun/configs -n $PROJECT_NS rollout undo deployment $CI_PROJECT_NAME --to-revision=1
 
 2/3 rollback:
   stage: prod-rollback
@@ -162,7 +162,7 @@ job_push_prod_release:                                                   ### 部
   variables:
     PROJECT_NS: '$CI_PROJECT_NAMESPACE-prod-deploy'                      # 定义job内变量覆盖全局变量设置
   script:
-  - kubectl --kubeconfig=/etc/.aliyun/config -n $PROJECT_NS rollout undo deployment $CI_PROJECT_NAME --to-revision=2
+  - kubectl --kubeconfig=/etc/.aliyun/configs -n $PROJECT_NS rollout undo deployment $CI_PROJECT_NAME --to-revision=2
 
 3/3 rollback:
   stage: prod-rollback
@@ -175,4 +175,4 @@ job_push_prod_release:                                                   ### 部
   variables:
     PROJECT_NS: '$CI_PROJECT_NAMESPACE-prod-deploy'                      # 定义job内变量覆盖全局变量设置
   script:
-  - kubectl --kubeconfig=/etc/.aliyun/config -n $PROJECT_NS rollout undo deployment $CI_PROJECT_NAME --to-revision=3
+  - kubectl --kubeconfig=/etc/.aliyun/configs -n $PROJECT_NS rollout undo deployment $CI_PROJECT_NAME --to-revision=3

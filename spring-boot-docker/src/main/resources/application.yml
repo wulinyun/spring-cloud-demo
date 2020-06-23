@@ -15,7 +15,7 @@ spring:
 #日志配置     
 #logging:
 #  path: logs
-#  config: classpath:logback.xml
+#  configs: classpath:logback.xml
 #暴露actuator端点    
 management:
   endpoints:

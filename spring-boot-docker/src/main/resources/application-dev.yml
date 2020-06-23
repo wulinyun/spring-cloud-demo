@@ -35,7 +35,7 @@ spring:
         probability: 1.0 # 采用比例，默认 0.1 全部采样 1.0
 
 mybatis:
-    config-location: classpath:mybatis/mybatis-config.xml
+    config-location: classpath:mybatis/mybatis-configs.xml
     mapper-locations: classpath:mybatis/mapper/*.xml
     type-aliases-package: com.landa.mas.facerecognition.model.vo
 

@@ -8,7 +8,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 
 mybatis:
-    config-location: classpath:mybatis/mybatis-config.xml
+    config-location: classpath:mybatis/mybatis-configs.xml
     mapper-locations: classpath:mybatis/mapper/*.xml
     type-aliases-package: com.landa.mas.facerecognition.model.vo
 
