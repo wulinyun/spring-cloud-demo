@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * @Author wulinyun
  * @Version 1.0
  * @JdkVesion 1.7
- * @Description TODO
+ * @Description JpaRepository接口继承了PagingAndSortingRepository。对继承的父接口中方法的返回值进行适配。
  * @Date 2020/7/5 14:17
  */
 

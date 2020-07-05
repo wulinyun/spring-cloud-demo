@@ -53,6 +53,21 @@ class SpringbootDataJpaApplicationTests {
         //this.usersRepository.deleteById(1);
         this.usersRepository.delete(users);
     }
+
+    /**
+     * JpaRepository	排序测试
+     */
+    @Test
+    public void testJpaRepositorySort(){
+        //Order	定义了排序规则
+        Sort.Order order=new Sort.Order(Sort.Direction.DESC,"id");
+        //Sort对象封装了排序规则
+        Sort sort=Sort.by(order);
+        List<Users> list= this.usersRepository.findAll(sort);
+        for (Users users:list){
+            System.out.println(users);
+        }
+    }
     /**
      * Repository
      */
