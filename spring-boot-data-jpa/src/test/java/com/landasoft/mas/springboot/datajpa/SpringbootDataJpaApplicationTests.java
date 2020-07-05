@@ -2,6 +2,7 @@ package com.landasoft.mas.springboot.datajpa;
 
 import com.landasoft.mas.springboot.datajpa.dao.UsersRepository;
 import com.landasoft.mas.springboot.datajpa.dao.UsersRepositoryByName;
+import com.landasoft.mas.springboot.datajpa.dao.UsersRepositoryCrudRepository;
 import com.landasoft.mas.springboot.datajpa.dao.UsersRepositoryQueryAnnotation;
 import com.landasoft.mas.springboot.datajpa.entity.Roles;
 import com.landasoft.mas.springboot.datajpa.entity.Users;
@@ -21,6 +22,8 @@ class SpringbootDataJpaApplicationTests {
     private UsersRepositoryByName usersRepositoryByName;
     @Autowired
     private UsersRepositoryQueryAnnotation usersRepositoryQueryAnnotation;
+    @Autowired
+    private UsersRepositoryCrudRepository usersRepositoryCrudRepository;
     @Test
     void contextLoads() {
     }
@@ -94,5 +97,46 @@ class SpringbootDataJpaApplicationTests {
     @Transactional
     public void testUpdateUsersNameById() {
         this.usersRepositoryQueryAnnotation.updateUsersNameById("王五", 1);
+    }
+    /**
+     * CrudRepository接口
+     */
+    @Test
+    public void testCrudRepositorySave() {
+        Users users=new Users();
+        users.setName("青衫");
+        users.setAge(30);
+        users.setAddress("湖南怀化");
+        this.usersRepositoryCrudRepository.save(users);
+    }
+    @Test
+    public void testCrudRepositoryUpdate() {
+        Users users=new Users();
+        users.setId(4);
+        users.setName("青");
+        users.setAge(18);
+        users.setAddress("怀化");
+        this.usersRepositoryCrudRepository.save(users);
+    }
+
+    @Test
+    public void testCrudRepositoryFindOne() {
+
+        java.util.Optional<Users> users=this.usersRepositoryCrudRepository.findById(4);
+        System.out.println(users.get());
+    }
+
+    @Test
+    public void testCrudRepositoryFindAll() {
+        List<Users> list= (List<Users>) this.usersRepositoryCrudRepository.findAll();
+        for (Users user:list){
+            System.out.println(user);
+        }
+    }
+
+    @Test
+    public void testCrudRepositoryDeleteById() {
+        this.usersRepositoryCrudRepository.deleteById(4);
+
     }
 }
