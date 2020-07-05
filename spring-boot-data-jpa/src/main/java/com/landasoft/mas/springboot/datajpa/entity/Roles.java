@@ -22,6 +22,17 @@ public class Roles {
     private String roleName;
     @OneToMany(mappedBy = "roles")
     private Set<Users> users=new HashSet<>();
+    /**
+     * FetchType.LAZY：懒加载，加载一个实体时，定义懒加载的属性不会马上从数据库中加载
+     *
+     * FetchType.EAGER：急加载，加载一个实体时，定义急加载的属性会立即从数据库中加载
+     */
+    @ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    /**
+     * 映射中间表  joinColumns:当前表中的主键关联中间表的外键
+     */
+    @JoinTable(name = "t_roles_menus",joinColumns =@JoinColumn(name = "role_id"),inverseJoinColumns = @JoinColumn(name = "menu_id"))
+    private Set<Menus> menus=new HashSet<>();
 
     public Integer getRoleId() {
         return roleId;
@@ -45,5 +56,13 @@ public class Roles {
 
     public void setUsers(Set<Users> users) {
         this.users = users;
+    }
+
+    public Set<Menus> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(Set<Menus> menus) {
+        this.menus = menus;
     }
 }
