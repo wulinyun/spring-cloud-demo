@@ -10,9 +10,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.annotation.Rollback;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -27,6 +33,8 @@ class SpringbootDataJpaApplicationTests {
     private UsersRepositoryCrudRepository usersRepositoryCrudRepository;
     @Autowired
     private UsersRepositoryPagingAndSorting usersRepositoryPagingAndSorting;
+    @Autowired
+    private UserRepositorySpecification userRepositorySpecification;
     @Test
     void contextLoads() {
     }
@@ -182,6 +190,77 @@ class SpringbootDataJpaApplicationTests {
         System.out.println("数据的总条数："+page.getTotalElements());
         System.out.println("总页数："+page.getTotalPages());
         List<Users> list=page.getContent();
+        for (Users users:list){
+            System.out.println(users);
+        }
+    }
+    /**
+     * JpaSpecificationExecutor	 单条件查询
+     */
+    @Test
+    public void testJpaSpecificationExecutor1(){
+        /**
+         * Specification:用于封装查查询条件
+         */
+        Specification<Users> spec = new Specification<Users>() {
+            //Predicate：封装了单个查询条件
+
+            /**
+             *
+             * @param root 对查询对象属性的封装
+             * @param criteriaQuery 	封装了我们要执行的查询中的各个部分的信息，select from order
+             * @param criteriaBuilder 查询条件的构造器
+             * @return
+             */
+            @Override
+            public Predicate toPredicate(Root<Users> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                //where name="张三"
+                /**
+                 *
+                 */
+                Predicate predicate = criteriaBuilder.equal(root.get("name"),"王五");
+                return predicate;
+            }
+        };
+        List<Users> list=this.userRepositorySpecification.findAll(spec);
+        for (Users users:list){
+            System.out.println(users);
+        }
+    }
+    /**
+     * JpaSpecificationExecutor		多条件查询方式一
+     */
+    @Test
+    public void testJpaSpecificationExecutor2() {
+        /**
+         * Specification:用于封装查查询条件
+         */
+        Specification<Users> spec=new Specification<Users>() {
+            //Predicate：封装了单个查询条件
+
+            /**
+             * @param root		对查询对象属性的封装
+             * @param criteriaQuery	封装了我们要执行的查询中的各个部分的信息，select from order
+             * @param criteriaBuilder	查询条件的构造器
+             * @return
+             */
+            @Override
+            public Predicate toPredicate(Root<Users> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                //where name="张三" and age=20
+                /**
+                 * 参数一：查询的属性
+                 * 参数二：条件的值
+                 */
+                List<Predicate> list=new ArrayList<>();
+                list.add(criteriaBuilder.equal(root.get("name"),"王五"));
+                list.add(criteriaBuilder.equal(root.get("age"),20));
+                Predicate[] arr=new Predicate[list.size()];
+                return criteriaBuilder.and(list.toArray(arr));
+                //(name='张三' and age=20) or id=2
+                //return criteriaBuilder.or(criteriaBuilder.and(criteriaBuilder.equal(root.get("name"),"王五"),criteriaBuilder.equal(root.get("age"),20)),criteriaBuilder.equal(root.get("id"),1));
+            }
+        };
+        List<Users> list=this.userRepositorySpecification.findAll(spec);
         for (Users users:list){
             System.out.println(users);
         }
