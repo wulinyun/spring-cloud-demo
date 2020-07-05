@@ -1,14 +1,15 @@
 package com.landasoft.mas.springboot.datajpa;
 
-import com.landasoft.mas.springboot.datajpa.dao.UsersRepository;
-import com.landasoft.mas.springboot.datajpa.dao.UsersRepositoryByName;
-import com.landasoft.mas.springboot.datajpa.dao.UsersRepositoryCrudRepository;
-import com.landasoft.mas.springboot.datajpa.dao.UsersRepositoryQueryAnnotation;
+import com.landasoft.mas.springboot.datajpa.dao.*;
 import com.landasoft.mas.springboot.datajpa.entity.Roles;
 import com.landasoft.mas.springboot.datajpa.entity.Users;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
@@ -24,6 +25,8 @@ class SpringbootDataJpaApplicationTests {
     private UsersRepositoryQueryAnnotation usersRepositoryQueryAnnotation;
     @Autowired
     private UsersRepositoryCrudRepository usersRepositoryCrudRepository;
+    @Autowired
+    private UsersRepositoryPagingAndSorting usersRepositoryPagingAndSorting;
     @Test
     void contextLoads() {
     }
@@ -138,5 +141,34 @@ class SpringbootDataJpaApplicationTests {
     public void testCrudRepositoryDeleteById() {
         this.usersRepositoryCrudRepository.deleteById(4);
 
+    }
+    /**
+     *PagingAndSortingRepository接口
+     */
+    @Test
+    public void testPagingAndSortingRepositorySort(){
+        //Order	定义了排序规则
+        Sort.Order order = new Sort.Order(Sort.Direction.ASC,"id");
+        //Sort对象封装了排序规则
+        Sort sort=Sort.by(order);
+        List<Users> list= (List<Users>) this.usersRepositoryPagingAndSorting.findAll(sort);
+        for (Users users:list){
+            System.out.println(users);
+        }
+    }
+    @Test
+    public void testPagingAndSortingRepositoryPageing(){
+        //Pageable:封装了分页的参数，当前页，每页显示的条数。注意：它的当前页是从0开始
+        //PageRequest(page,size):page表示当前页，size表示每页显示多少条
+        Sort sort=Sort.by(new Sort.Order(Sort.Direction.DESC,"id"));
+        //Pageable pageable = PageRequest.of(1,2);
+        Pageable pageable = PageRequest.of(1,2,sort);
+        Page<Users> page=this.usersRepositoryPagingAndSorting.findAll(pageable);
+        System.out.println("数据的总条数："+page.getTotalElements());
+        System.out.println("总页数："+page.getTotalPages());
+        List<Users> list=page.getContent();
+        for (Users users:list){
+            System.out.println(users);
+        }
     }
 }
