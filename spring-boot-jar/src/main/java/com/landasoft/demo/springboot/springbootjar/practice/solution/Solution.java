@@ -1,10 +1,10 @@
-package com.landasoft.demo.springboot.springbootjar;
+package com.landasoft.demo.springboot.springbootjar.practice.solution;
 
 /**
  * @Author wulinyun
  * @Version 1.0
  * @JdkVesion 1.7
- * @Description TODO
+ * @Description 给两个木根，截取成4段组成面积最大的长度
  * @Date 2021/3/11 11:03
  */
 public class Solution {
