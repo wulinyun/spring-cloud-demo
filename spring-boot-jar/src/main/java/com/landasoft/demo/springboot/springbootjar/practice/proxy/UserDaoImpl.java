@@ -1,4 +1,4 @@
-package com.landasoft.demo.springboot.springbootjar.proxy;
+package com.landasoft.demo.springboot.springbootjar.practice.proxy;
 
 /**
  * @Author wulinyun
