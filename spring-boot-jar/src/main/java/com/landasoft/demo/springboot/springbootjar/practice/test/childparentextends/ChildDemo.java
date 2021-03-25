@@ -1,4 +1,4 @@
-package com.landasoft.demo.springboot.springbootjar.practice.test;
+package com.landasoft.demo.springboot.springbootjar.practice.test.childparentextends;
 
 /**
  * @Author wulinyun
@@ -7,7 +7,7 @@ package com.landasoft.demo.springboot.springbootjar.practice.test;
  * @Description TODO
  * @Date 2021/3/22 12:08
  */
-public class ChildDemo extends ParentDemo{
+public class ChildDemo extends ParentDemo {
     private String name;
     public ChildDemo(String name){
         this.name = name;

@@ -1,4 +1,4 @@
-package com.landasoft.demo.springboot.springbootjar.practice.test;
+package com.landasoft.demo.springboot.springbootjar.practice.test.childparentextends;
 
 /**
  * @Author wulinyun

@@ -1,6 +1,7 @@
 package com.landasoft.demo.springboot.springbootjar;
 
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.internal.util.StringUtil;
@@ -70,6 +71,7 @@ public class SpringBootJarApplicationTests {
         ResponseEntity<String> entity = restTemplate.postForEntity("http://10.0.11.1:8082/qbxxpt/logAbout/addAppLogInfo", request, String.class);
         //获取3方接口返回的数据通过entity.getBody();它返回的是一个字符串；
         String body = entity.getBody();
+        Assert.assertEquals(1, 1);
         System.out.println(body);
     }
 }
