@@ -25,7 +25,7 @@
         <commons-collections.version>3.2.1</commons-collections.version>
         <commons-dbcp.version>1.4</commons-dbcp.version>
         <servlet.version>3.1.0</servlet.version>
-        <xstream.version>1.4.10</xstream.version>
+        <xstream.version>1.4.19</xstream.version>
         <jwt.version>0.9.0</jwt.version>
         <swagger.version>2.7.0</swagger.version>
         <!--<spring-cloud.version>Greenwich.SR2</spring-cloud.version>-->
